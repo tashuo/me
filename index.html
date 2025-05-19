@@ -347,326 +347,381 @@
   </style>
 </head>
 <body class="font-sans bg-gradient-to-br from-white to-blue-50 text-gray-800 transition-all duration-500" id="body">
+  <!-- 添加外层容器 -->
+  <div class="max-w-[1440px] mx-auto relative">
+    <!-- Theme Toggle -->
+    <div class="absolute top-4 right-4 md:right-12 flex items-center gap-3">
+      <a href="https://blog.aisheishei.me" target="_blank"
+         class="nav-button blog hover:scale-105 hover:shadow-lg transition-all duration-300">
+        <span class="text-lg transform hover:rotate-12 transition-transform duration-300">📝</span>
+        <span>博客</span>
+      </a>
+      <button onclick="toggleTheme()" 
+              class="nav-button theme hover:scale-105 hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+        <span id="theme-icon" class="text-lg">☀️</span>
+        <span id="theme-text" class="text-sm">昼</span>
+      </button>
+    </div>
 
-  <!-- Theme Toggle -->
-  <div class="absolute top-4 right-4 flex items-center gap-3">
-    <a href="https://blog.aisheishei.me" target="_blank"
-       class="nav-button blog">
-      <span class="text-lg">📝</span>
-      <span>博客</span>
-    </a>
-    <button onclick="toggleTheme()" class="nav-button theme">
-      <span id="theme-icon" class="text-lg">☀️</span>
-    </button>
+    <script>
+      function toggleTheme() {
+        document.documentElement.classList.toggle('dark');
+        const icon = document.getElementById('theme-icon');
+        const text = document.getElementById('theme-text');
+        
+        if (document.documentElement.classList.contains('dark')) {
+          icon.textContent = '🌙';
+          text.textContent = '夜';
+        } else {
+          icon.textContent = '☀️';
+          text.textContent = '昼';
+        }
+        
+        // 添加切换动画
+        icon.classList.add('animate-bounce');
+        setTimeout(() => {
+          icon.classList.remove('animate-bounce');
+        }, 1000);
+      }
+    </script>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 dark:text-white bg-gradient-to-br from-white via-blue-50 to-purple-50 dark:from-dark-bg dark:via-gray-900 dark:to-gray-800">
+      <!-- 头像部分 -->
+      <div class="relative mb-8">
+        <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="avatar" 
+             class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg animate-float border-4 border-white dark:border-dark-primary" />
+        <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-primary text-white px-3 py-1 rounded-full text-xs font-mono">
+          Available for hire
+        </div>
+      </div>
+
+      <!-- 标题和介绍 -->
+      <div class="space-y-4 max-w-2xl">
+        <h1 class="text-3xl sm:text-5xl font-extrabold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <span class="font-mono">I'm</span> Yaming
+        </h1>
+        <div class="flex flex-wrap justify-center gap-2 text-sm sm:text-base text-gray-600 dark:text-gray-300">
+          <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800">全栈工程师</span>
+          <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800">DevOps</span>
+          <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800">开源爱好者</span>
+        </div>
+        <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+          <span class="typewriter">致力于打造高性能、可扩展的全栈应用，让代码改变世界</span>
+        </p>
+      </div>
+
+      <!-- 行动按钮 -->
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href="#contact" 
+           class="bg-primary hover:bg-indigo-600 text-white px-6 py-3 rounded-lg text-base sm:text-lg font-semibold shadow transition transform hover:scale-105 flex items-center gap-2">
+          <span>👋 联系我</span>
+          <span class="text-sm">→</span>
+        </a>
+        <a href="#projects" 
+           class="bg-white dark:bg-gray-800 text-primary dark:text-dark-primary px-6 py-3 rounded-lg text-base sm:text-lg font-semibold shadow transition transform hover:scale-105 flex items-center gap-2 border border-primary dark:border-dark-primary">
+          <span>💼 项目</span>
+          <span class="text-sm">→</span>
+        </a>
+      </div>
+
+      <!-- 技术栈预览 -->
+      <div class="mt-12 flex flex-wrap justify-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+        <span class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-green-500"></span>
+          React.js
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+          Node.js
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+          Laravel
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+          Docker
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+          TailwindCSS
+        </span>
+        <span class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+          DevOps
+        </span>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-12 sm:py-20 px-4 sm:px-6 bg-white dark:bg-gray-900">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          关于我
+        </h2>
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
+          <p class="text-base sm:text-lg font-light text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+            资深全栈开发工程师，拥有10年开发经验，擅长构建高并发、高性能、可扩展的应用程序。
+          </p>
+          <p class="text-base sm:text-lg font-light text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+            具备丰富的数据库优化、微服务架构、DevOps经验，同时精通前端响应式开发，能够打造流畅的用户体验。
+          </p>
+          <p class="text-base sm:text-lg font-light text-gray-700 dark:text-gray-300 leading-relaxed">
+            熟悉云计算、自动化部署、分布式存储等技术，致力于优化系统性能，提升应用稳定性和可维护性。
+          </p>
+          <!-- 更新技能标签 -->
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">全栈开发</span>
+            <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">高并发</span>
+            <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">微服务</span>
+            <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">DevOps</span>
+            <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">CI/CD</span>
+            <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">响应式设计</span>
+            <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">AWS</span>
+            <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">性能调优</span>
+            <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">监控及告警</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Icons Section -->
+    <section class="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          技术栈
+        </h2>
+        <div class="relative">
+          <div class="flex overflow-x-auto hide-scrollbar space-x-4 sm:space-x-6 snap-x snap-mandatory" style="min-height: 200px;">
+            <!-- 前端技能 -->
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">⚛️</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">React.js</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Frontend</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">🎨</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">TailwindCSS</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Styling</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <!-- 新增 Next.js -->
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">▲</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Next.js</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Frontend</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <!-- 后端技能 -->
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">🟢</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Node.js</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Backend</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <!-- 新增 Nest.js -->
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">🪺</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Nest.js</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Backend</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <!-- 新增 Golang -->
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">🦫</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Golang</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Backend</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">🛠</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Laravel</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Backend</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <!-- 新增 Redis -->
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">🔴</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Redis</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Cache</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <!-- DevOps技能 -->
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">🐳</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Docker</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">DevOps</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">⚙️</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">DevOps</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Infrastructure</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <!-- 数据库技能 -->
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">🐬</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">MySQL</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Database</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">🍃</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">MongoDB</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Database</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <!-- 其他技能 -->
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">📦</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Git</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Version Control</p>
+              <div class="skill-level"></div>
+            </div>
+
+            <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
+              <div class="skill-icon text-4xl sm:text-5xl">📘</div>
+              <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">TypeScript</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Language</p>
+              <div class="skill-level"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-dark-bg dark:to-gray-800 relative">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          项目
+        </h2>
+        <div class="relative">
+          <div class="flex overflow-x-auto hide-scrollbar space-x-4 sm:space-x-6 snap-x snap-mandatory" style="min-height: 320px;">
+            <!-- 海外导购平台 -->
+            <a href="https://goflashdeals.com" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
+              <div class="project-icon text-2xl">🛍️</div>
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">海外导购平台</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">基于 Nest.js 和 Next.js 构建的现代化电商平台</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="tech-tag">Nest.js</span>
+                <span class="tech-tag">Next.js</span>
+              </div>
+              <div class="project-link">
+                <span>查看项目</span>
+                <span>→</span>
+              </div>
+            </a>
+            <!-- 播客聚合平台 -->
+            <a href="https://earsonme.com/" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
+              <div class="project-icon text-2xl">🎙️</div>
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">播客聚合平台</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">使用 Livewire 和 Alpine.js 开发的实时播客平台</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="tech-tag">Livewire</span>
+                <span class="tech-tag">Alpine.js</span>
+              </div>
+              <div class="project-link">
+                <span>查看项目</span>
+                <span>→</span>
+              </div>
+            </a>
+            <!-- 社区 -->
+            <a href="https://nextjs-mui-learn.vercel.app" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
+              <div class="project-icon text-2xl">🌐</div>
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">社区</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">使用 Nest.js、Next.js 和 Socket.io 构建的实时社区</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="tech-tag">Nest.js</span>
+                <span class="tech-tag">Next.js</span>
+                <span class="tech-tag">Socket.io</span>
+              </div>
+              <div class="project-link">
+                <span>查看项目</span>
+                <span>→</span>
+              </div>
+            </a>
+            <!-- 题库及模拟考试平台 -->
+            <a href="https://exercise.aisheishei.me" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
+              <div class="project-icon text-2xl">🎙️</div>
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">题库及模拟考试平台</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">基于 Livewire 和 Alpine.js 的在线考试系统</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="tech-tag">Livewire</span>
+                <span class="tech-tag">Alpine.js</span>
+              </div>
+              <div class="project-link">
+                <span>查看项目</span>
+                <span>→</span>
+              </div>
+            </a>
+            <!-- 企业内部协作平台 -->
+            <div class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
+              <span class="coming-soon">内部系统</span>
+              <div class="project-icon text-2xl">🎉</div>
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">企业内部在线协作平台</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">基于群晖和 Discuz 的企业级协作解决方案</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="tech-tag">群晖</span>
+                <span class="tech-tag">Discuz</span>
+              </div>
+            </div>
+            <!-- 轰趴馆微信小程序 -->
+            <div class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
+              <span class="coming-soon">小程序</span>
+              <div class="project-icon text-2xl">🎉</div>
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">轰趴馆微信小程序</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">基于 Hyperf 和 Vue.js 开发的派对预订小程序</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="tech-tag">Hyperf</span>
+                <span class="tech-tag">Vue.js</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-gray-800 dark:text-white">
+          联系我
+        </h2>
+        <p class="mb-12 text-sm sm:text-base text-gray-600 dark:text-gray-300">
+          期待与您合作，一起创造精彩 👋
+        </p>
+        <a href="https://github.com/tashuo" target="_blank" class="contact-link group">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 sm:py-12 text-center">
+      <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+        © 2025 Yaming · 干就完了
+      </div>
+    </footer>
   </div>
-
-  <script>
-    function toggleTheme() {
-      document.documentElement.classList.toggle('dark');
-      const icon = document.getElementById('theme-icon');
-      icon.textContent = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
-    }
-  </script>
-
-  <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 dark:text-white bg-gradient-to-br from-white via-blue-50 to-purple-50 dark:from-dark-bg dark:via-gray-900 dark:to-gray-800">
-    <!-- 头像部分 -->
-    <div class="relative mb-8">
-      <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="avatar" 
-           class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg animate-float border-4 border-white dark:border-dark-primary" />
-      <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-primary text-white px-3 py-1 rounded-full text-xs font-mono">
-        Available for hire
-      </div>
-    </div>
-
-    <!-- 标题和介绍 -->
-    <div class="space-y-4 max-w-2xl">
-      <h1 class="text-3xl sm:text-5xl font-extrabold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-        <span class="font-mono">I'm</span> Yaming
-      </h1>
-      <div class="flex flex-wrap justify-center gap-2 text-sm sm:text-base text-gray-600 dark:text-gray-300">
-        <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800">全栈工程师</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800">Devops</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800">开源爱好者</span>
-      </div>
-      <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-        <span class="typewriter">专注于构建高性能、可扩展的 Web 应用</span>
-      </p>
-    </div>
-
-    <!-- 行动按钮 -->
-    <div class="mt-8 flex flex-wrap justify-center gap-4">
-      <a href="#contact" 
-         class="bg-primary hover:bg-indigo-600 text-white px-6 py-3 rounded-lg text-base sm:text-lg font-semibold shadow transition transform hover:scale-105 flex items-center gap-2">
-        <span>👋 联系我</span>
-        <span class="text-sm">→</span>
-      </a>
-      <a href="#projects" 
-         class="bg-white dark:bg-gray-800 text-primary dark:text-dark-primary px-6 py-3 rounded-lg text-base sm:text-lg font-semibold shadow transition transform hover:scale-105 flex items-center gap-2 border border-primary dark:border-dark-primary">
-        <span>💼 项目</span>
-        <span class="text-sm">→</span>
-      </a>
-    </div>
-
-    <!-- 技术栈预览 -->
-    <div class="mt-12 flex flex-wrap justify-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-green-500"></span>
-        React.js
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-        Node.js
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
-        Laravel
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-        Docker
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
-        TailwindCSS
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-        DevOps
-      </span>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section class="py-12 sm:py-20 px-4 sm:px-6 bg-white dark:bg-gray-900">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-        关于我
-      </h2>
-      <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
-        <p class="text-base sm:text-lg font-light text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
-          资深全栈开发工程师，拥有10年开发经验，擅长构建高并发、高性能、可扩展的应用程序。具备丰富的数据库优化、微服务架构、DevOps经验，同时精通前端响应式开发，能够打造流畅的用户体验。
-        </p>
-        <p class="text-base sm:text-lg font-light text-gray-700 dark:text-gray-300 leading-relaxed">
-          熟悉云计算、自动化部署、分布式存储等技术，致力于优化系统性能，提升应用稳定性和可维护性。
-        </p>
-        <!-- 添加技能标签 -->
-        <div class="mt-6 flex flex-wrap gap-2">
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">高并发</span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">微服务</span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">DevOps</span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">云计算</span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">自动化部署</span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">分布式存储</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Icons Section -->
-  <section class="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-    <div class="max-w-6xl mx-auto text-center">
-      <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-        技术栈
-      </h2>
-      <div class="relative">
-        <div class="flex overflow-x-auto hide-scrollbar space-x-4 sm:space-x-6 snap-x snap-mandatory" style="min-height: 200px;">
-          <!-- 前端技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">⚛️</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">React.js</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Frontend</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🎨</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">TailwindCSS</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Styling</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <!-- 后端技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🟢</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Node.js</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Backend</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🛠</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Laravel</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Backend</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <!-- DevOps技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🐳</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Docker</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">DevOps</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">⚙️</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">DevOps</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Infrastructure</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <!-- 数据库技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🐬</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">MySQL</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Database</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🍃</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">MongoDB</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Database</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <!-- 其他技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">📦</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Git</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Version Control</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">📘</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">TypeScript</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Language</p>
-            <div class="skill-level"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-dark-bg dark:to-gray-800 relative">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-        项目
-      </h2>
-      <div class="relative">
-        <div class="flex overflow-x-auto hide-scrollbar space-x-4 sm:space-x-6 snap-x snap-mandatory" style="min-height: 320px;">
-          <!-- 海外导购平台 -->
-          <a href="https://goflashdeals.com" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <div class="project-icon text-2xl">🛍️</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">海外导购平台</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">基于 Nest.js 和 Next.js 构建的现代化电商平台</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Nest.js</span>
-              <span class="tech-tag">Next.js</span>
-            </div>
-            <div class="project-link">
-              <span>查看项目</span>
-              <span>→</span>
-            </div>
-          </a>
-          <!-- 播客聚合平台 -->
-          <a href="https://earsonme.com/" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <div class="project-icon text-2xl">🎙️</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">播客聚合平台</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">使用 Livewire 和 Alpine.js 开发的实时播客平台</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Livewire</span>
-              <span class="tech-tag">Alpine.js</span>
-            </div>
-            <div class="project-link">
-              <span>查看项目</span>
-              <span>→</span>
-            </div>
-          </a>
-          <!-- 社区 -->
-          <a href="https://nextjs-mui-learn.vercel.app" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <div class="project-icon text-2xl">🌐</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">社区</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">使用 Nest.js、Next.js 和 Socket.io 构建的实时社区</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Nest.js</span>
-              <span class="tech-tag">Next.js</span>
-              <span class="tech-tag">Socket.io</span>
-            </div>
-            <div class="project-link">
-              <span>查看项目</span>
-              <span>→</span>
-            </div>
-          </a>
-          <!-- 题库及模拟考试平台 -->
-          <a href="https://exercise.aisheishei.me" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <div class="project-icon text-2xl">🎙️</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">题库及模拟考试平台</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">基于 Livewire 和 Alpine.js 的在线考试系统</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Livewire</span>
-              <span class="tech-tag">Alpine.js</span>
-            </div>
-            <div class="project-link">
-              <span>查看项目</span>
-              <span>→</span>
-            </div>
-          </a>
-          <!-- 企业内部协作平台 -->
-          <div class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <span class="coming-soon">内部系统</span>
-            <div class="project-icon text-2xl">🎉</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">企业内部在线协作平台</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">基于群晖和 Discuz 的企业级协作解决方案</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">群晖</span>
-              <span class="tech-tag">Discuz</span>
-            </div>
-          </div>
-          <!-- 轰趴馆微信小程序 -->
-          <div class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <span class="coming-soon">小程序</span>
-            <div class="project-icon text-2xl">🎉</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">轰趴馆微信小程序</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">基于 Hyperf 和 Vue.js 开发的派对预订小程序</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Hyperf</span>
-              <span class="tech-tag">Vue.js</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800">
-    <div class="max-w-xl mx-auto text-center">
-      <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-gray-800 dark:text-white">
-        联系我
-      </h2>
-      <p class="mb-12 text-sm sm:text-base text-gray-600 dark:text-gray-300">
-        期待与您合作，一起创造精彩 👋
-      </p>
-      <a href="https://github.com/tashuo" target="_blank" class="contact-link group">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-        </svg>
-        <span>GitHub</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-8 sm:py-12 text-center">
-    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-      © 2025 Yaming · 干就完了
-    </div>
-  </footer>
-
 </body>
 </html>
 
