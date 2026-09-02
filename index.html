@@ -146,7 +146,7 @@
     @media(max-width:860px){.nav-links .nav-link{display:none}}
 
     /* ============ hero ============ */
-    .hero{min-height:calc(100vh - 60px);display:flex;flex-direction:column;justify-content:center;padding-top:40px;padding-bottom:60px}
+    .hero{min-height:calc(100vh - 72px);display:flex;flex-direction:column;justify-content:center;padding-top:7vh;padding-bottom:0}
     .status{
       display:inline-flex;align-items:center;gap:9px;
       padding:6px 14px 6px 10px;border-radius:999px;
@@ -195,7 +195,7 @@
     .btn:hover .arr{transform:translateX(3px)}
 
     /* marquee */
-    .marquee{margin-top:56px;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0}
+    .marquee{margin-top:auto;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0}
     .marquee::before,.marquee::after{content:'';position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none}
     .marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
     .marquee::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
@@ -272,6 +272,28 @@
     .tech .k{display:block;font-family:var(--mono);font-size:10.5px;color:var(--fg-faint);letter-spacing:.08em;text-transform:uppercase}
     .mono-icon img{filter:invert(1)}
     html.light .mono-icon img{filter:none}
+    .tech .spark{width:26px;height:26px;position:relative;z-index:1;flex-shrink:0;color:var(--cyan)}
+
+    /* stack filter tabs */
+    .stack-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+    .stack-tab{
+      display:inline-flex;align-items:center;gap:7px;
+      font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+      padding:7px 14px;border-radius:999px;cursor:pointer;transition:.22s;
+      border:1px solid var(--line);background:var(--surface);color:var(--fg-faint);
+    }
+    .stack-tab:hover{color:var(--fg);border-color:var(--line-strong)}
+    .stack-tab .ct{font-size:10.5px;opacity:.65}
+    .stack-tab.on{
+      color:#04070f;border-color:transparent;font-weight:700;
+      background:linear-gradient(135deg,var(--cyan),var(--indigo));
+      box-shadow:0 10px 26px -12px var(--glow-b);
+    }
+    html.light .stack-tab.on{color:#fff}
+    .tech.off{display:none}
+    .tech.pop{animation:pop .38s cubic-bezier(.2,.7,.3,1) both}
+    @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+    @media(prefers-reduced-motion:reduce){.tech.pop{animation:none}}
 
     /* ============ projects ============ */
     .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
@@ -378,7 +400,7 @@
     </header>
 
     <!-- ============ HERO ============ -->
-    <section class="hero" id="top" style="padding-top:24px">
+    <section class="hero" id="top">
       <div class="container">
         <span class="status">
           <span class="dot"></span>
@@ -459,7 +481,7 @@
           <div class="stats">
             <div class="stat reveal"><b>10+</b><span class="lang-switch" data-zh="年工程经验" data-en="Years of engineering">Years of engineering</span></div>
             <div class="stat reveal"><b>7+</b><span class="lang-switch" data-zh="上线交付的产品" data-en="Products shipped">Products shipped</span></div>
-            <div class="stat reveal"><b>15</b><span class="lang-switch" data-zh="日常使用的核心技术" data-en="Core technologies in daily use">Core technologies in daily use</span></div>
+            <div class="stat reveal"><b>20</b><span class="lang-switch" data-zh="日常使用的核心技术" data-en="Core technologies in daily use">Core technologies in daily use</span></div>
           </div>
         </div>
       </div>
@@ -474,6 +496,7 @@
           <span class="sec-rule"></span>
           <span class="sec-sub">ls -la ./stack</span>
         </div>
+        <div class="stack-tabs reveal" id="stack-tabs"></div>
         <div class="stack-grid" id="stack-grid"></div>
       </div>
     </section>
@@ -530,22 +553,41 @@
     var DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
 
     /* ---------- data ---------- */
+    var GROUPS = [
+      { id:'all',      zh:'全部',   en:'All' },
+      { id:'ai',       zh:'AI',       en:'AI' },
+      { id:'backend',  zh:'后端',   en:'Backend' },
+      { id:'frontend', zh:'前端',   en:'Frontend' },
+      { id:'data',     zh:'数据',   en:'Data' },
+      { id:'infra',    zh:'工程化', en:'Infra' }
+    ];
+
+    // name, role(zh), role(en), group, devicon path (null = AI spark icon), invert-in-dark
     var STACK = [
-      ['React',        'Frontend',  'react/react-original.svg'],
-      ['Next.js',      'Framework', 'nextjs/nextjs-original.svg', true],
-      ['TypeScript',   'Language',  'typescript/typescript-original.svg'],
-      ['TailwindCSS',  'Styling',   'tailwindcss/tailwindcss-original.svg'],
-      ['Vue.js',       'Frontend',  'vuejs/vuejs-original.svg'],
-      ['Node.js',      'Backend',   'nodejs/nodejs-original.svg'],
-      ['NestJS',       'Backend',   'nestjs/nestjs-original.svg'],
-      ['Laravel',      'Backend',   'laravel/laravel-original.svg'],
-      ['PHP',          'Language',  'php/php-original.svg'],
-      ['MySQL',        'Database',  'mysql/mysql-original.svg'],
-      ['MongoDB',      'Database',  'mongodb/mongodb-original.svg'],
-      ['Redis',        'Cache',     'redis/redis-original.svg'],
-      ['Docker',       'DevOps',    'docker/docker-original.svg'],
-      ['Linux',        'Infra',     'linux/linux-original.svg'],
-      ['Cloudflare',   'Edge',      'cloudflare/cloudflare-original.svg']
+      ['OpenAI GPT',  '大模型接口', 'LLM API',          'ai',       null],
+      ['Claude',      '大模型接口', 'LLM API',          'ai',       null],
+      ['Gemini',      '大模型接口', 'LLM API',          'ai',       null],
+      ['DeepSeek',    '大模型接口', 'LLM API',          'ai',       null],
+
+      ['Go',          '后端语言',   'Language',         'backend',  'go/go-original.svg'],
+      ['Node.js',     '运行时',     'Runtime',          'backend',  'nodejs/nodejs-original.svg'],
+      ['NestJS',      '后端框架',   'Node Framework',   'backend',  'nestjs/nestjs-original.svg'],
+      ['Laravel',     '后端框架',   'PHP Framework',    'backend',  'laravel/laravel-original.svg'],
+      ['PHP',         '后端语言',   'Language',         'backend',  'php/php-original.svg'],
+
+      ['React',       'UI 库',        'UI Library',       'frontend', 'react/react-original.svg'],
+      ['Next.js',     '全栈框架',   'React Framework',  'frontend', 'nextjs/nextjs-original.svg', true],
+      ['TypeScript',  '前端语言',   'Language',         'frontend', 'typescript/typescript-original.svg'],
+      ['Vue.js',      'UI 框架',      'UI Framework',     'frontend', 'vuejs/vuejs-original.svg'],
+      ['TailwindCSS', '样式方案',   'CSS Framework',    'frontend', 'tailwindcss/tailwindcss-original.svg'],
+
+      ['MySQL',       '关系型数据库', 'Relational DB', 'data',   'mysql/mysql-original.svg'],
+      ['MongoDB',     '文档数据库', 'Document DB',    'data',     'mongodb/mongodb-original.svg'],
+      ['Redis',       '缓存 / 队列', 'Cache / Queue',    'data',     'redis/redis-original.svg'],
+
+      ['Cloudflare',  '边缘平台',   'Edge Platform',    'infra',    'cloudflare/cloudflare-original.svg'],
+      ['Docker',      '容器化',     'Containers',       'infra',    'docker/docker-original.svg'],
+      ['Linux',       '服务器系统', 'Server OS',      'infra',    'linux/linux-original.svg']
     ];
 
     var PROJECTS = [
@@ -594,13 +636,22 @@
     ];
 
     /* ---------- render ---------- */
+    var SPARK = '<svg class="spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.4L19.5 10l-5.6 1.6L12 17l-1.9-5.4L4.5 10l5.6-1.6L12 3z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/></svg>';
+
     var grid = document.getElementById('stack-grid');
+    var tabsEl = document.getElementById('stack-tabs');
+    var activeGroup = 'all';
+
     STACK.forEach(function (t) {
       var el = document.createElement('div');
-      el.className = 'tech reveal' + (t[3] ? ' mono-icon' : '');
-      el.innerHTML =
-        '<img loading="lazy" src="' + DEVICON + t[2] + '" alt="' + t[0] + '" onerror="this.style.display=\'none\'">' +
-        '<span class="meta"><span class="n">' + t[0] + '</span><span class="k">' + t[1] + '</span></span>';
+      el.className = 'tech reveal' + (t[5] ? ' mono-icon' : '');
+      el.dataset.group = t[3];
+      var icon = t[4]
+        ? '<img loading="lazy" src="' + DEVICON + t[4] + '" alt="' + t[0] + '" onerror="this.style.display=\'none\'">'
+        : SPARK;
+      el.innerHTML = icon +
+        '<span class="meta"><span class="n">' + t[0] + '</span>' +
+        '<span class="k lang-switch" data-zh="' + t[1] + '" data-en="' + t[2] + '">' + t[2] + '</span></span>';
       el.addEventListener('pointermove', function (e) {
         var r = el.getBoundingClientRect();
         el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
@@ -608,6 +659,50 @@
       });
       grid.appendChild(el);
     });
+
+    function renderTabs() {
+      tabsEl.innerHTML = '';
+      GROUPS.forEach(function (g) {
+        var count = g.id === 'all'
+          ? STACK.length
+          : STACK.filter(function (t) { return t[3] === g.id; }).length;
+        var b = document.createElement('button');
+        b.className = 'stack-tab' + (g.id === activeGroup ? ' on' : '');
+        b.innerHTML = '<span class="lang-switch" data-zh="' + g.zh + '" data-en="' + g.en + '">' + g.en +
+                      '</span><span class="ct">' + count + '</span>';
+        b.addEventListener('click', function () { setGroup(g.id); });
+        tabsEl.appendChild(b);
+      });
+      applyLang(tabsEl);
+    }
+
+    function setGroup(id) {
+      if (activeGroup === 'all') baseH = grid.offsetHeight;
+      activeGroup = id;
+      grid.style.minHeight = id === 'all' ? '' : baseH + 'px';
+      Array.prototype.forEach.call(tabsEl.children, function (b, i) {
+        b.classList.toggle('on', GROUPS[i].id === id);
+      });
+      Array.prototype.forEach.call(grid.children, function (el) {
+        var show = id === 'all' || el.dataset.group === id;
+        el.classList.toggle('off', !show);
+        if (show) {
+          el.classList.add('in');
+          el.classList.remove('pop');
+          void el.offsetWidth;
+          el.classList.add('pop');
+        }
+      });
+    }
+
+    renderTabs();
+
+    // keep the section height stable while filtering
+    var baseH = 0;
+    function measure() { if (activeGroup === 'all') baseH = grid.offsetHeight; }
+    window.addEventListener('load', measure);
+    window.addEventListener('resize', function () { grid.style.minHeight = ''; measure(); });
+    measure();
 
     var pg = document.getElementById('proj-grid');
     PROJECTS.forEach(function (p, i) {
@@ -660,6 +755,12 @@
     var currentLang = 'en';
     try { currentLang = localStorage.getItem('lang') || 'en'; } catch (e) {}
 
+    function applyLang(root) {
+      (root || document).querySelectorAll('.lang-switch').forEach(function (el) {
+        var v = el.dataset[currentLang];
+        if (v != null) el.textContent = v;
+      });
+    }
     function updateContent() {
       document.querySelectorAll('.lang-switch').forEach(function (el) {
         var v = el.dataset[currentLang];
