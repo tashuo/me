@@ -4,777 +4,712 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title class="lang-switch" data-zh="Yaming · 全栈工程师" data-en="Yaming · Full Stack Engineer">Yaming · Full Stack Engineer</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            primary: '#6366f1',
-            accent: '#10b981',
-            dark: {
-              primary: '#818cf8',
-              bg: '#1a1b1e',
-              card: '#2d2e32',
-            }
-          },
-          animation: {
-            float: 'float 3s ease-in-out infinite',
-            fadeIn: 'fadeIn 2s ease-out',
-            type: 'type 3s steps(40, end)',
-            pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' },
-            },
-            fadeIn: {
-              from: { opacity: 0 },
-              to: { opacity: 1 },
-            },
-            type: {
-              from: { width: '0' },
-              to: { width: '100%' },
-            },
-            pulse: {
-              '0%, 100%': { opacity: 1 },
-              '50%': { opacity: .5 },
-            }
-          },
-        },
-      },
-    };
-  </script>
+  <meta name="description" content="Yaming — Full Stack & DevOps Engineer. Building high-performance, scalable systems." />
+  <meta name="theme-color" content="#05070d" />
+  <meta property="og:title" content="Yaming · Full Stack Engineer" />
+  <meta property="og:description" content="Building high-performance, scalable systems." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.yaming.dev/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230b1020'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='56' font-weight='700' fill='%2322d3ee' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    .typewriter {
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 3px solid #6366f1;
-      width: 0;
-      animation: type 3s steps(40, end) forwards;
-      display: inline-block;
+    /* ============ tokens ============ */
+    :root{
+      --bg:#05070d;
+      --bg-soft:#080b14;
+      --surface:rgba(255,255,255,.028);
+      --surface-2:rgba(255,255,255,.05);
+      --line:rgba(255,255,255,.09);
+      --line-strong:rgba(255,255,255,.16);
+      --fg:#e8edf7;
+      --fg-dim:#9aa5bb;
+      --fg-faint:#66708a;
+      --cyan:#22d3ee;
+      --indigo:#818cf8;
+      --mint:#34d399;
+      --grid:rgba(255,255,255,.045);
+      --glow-a:rgba(34,211,238,.16);
+      --glow-b:rgba(129,140,248,.16);
+      --shadow:0 24px 60px -20px rgba(0,0,0,.8);
+      --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    }
+    html.light{
+      --bg:#f7f9fc;
+      --bg-soft:#ffffff;
+      --surface:rgba(9,15,32,.025);
+      --surface-2:rgba(9,15,32,.045);
+      --line:rgba(9,15,32,.09);
+      --line-strong:rgba(9,15,32,.16);
+      --fg:#0d1424;
+      --fg-dim:#4a5570;
+      --fg-faint:#7d879e;
+      --cyan:#0891b2;
+      --indigo:#4f46e5;
+      --mint:#059669;
+      --grid:rgba(9,15,32,.05);
+      --glow-a:rgba(8,145,178,.12);
+      --glow-b:rgba(79,70,229,.12);
+      --shadow:0 24px 50px -24px rgba(13,20,36,.22);
     }
 
-    @keyframes type {
-        from { width: 0 }
-        to { width: 100% }
+    /* ============ base ============ */
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{
+      margin:0;
+      font-family:'Inter',system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+      transition:background .4s ease,color .4s ease;
     }
+    a{color:inherit;text-decoration:none}
+    h1,h2,h3{margin:0;line-height:1.15;letter-spacing:-.02em}
+    p{margin:0}
+    ::selection{background:rgba(34,211,238,.28)}
 
-    @media (max-width: 640px) {
-      .mobile-padding {
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-      
-      .mobile-text {
-        font-size: 1.25rem;
-      }
-      
-      .mobile-heading {
-        font-size: 2rem;
-      }
+    /* ============ ambient background ============ */
+    .bg-layer{position:fixed;inset:0;pointer-events:none;z-index:0}
+    .bg-grid{
+      background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+      background-size:64px 64px;
+      mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 78%);
+      -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 78%);
     }
+    .bg-glow{
+      background:
+        radial-gradient(700px 420px at 18% 8%,var(--glow-a),transparent 62%),
+        radial-gradient(620px 420px at 84% 22%,var(--glow-b),transparent 62%),
+        radial-gradient(800px 500px at 50% 105%,var(--glow-a),transparent 65%);
+      filter:blur(6px);
+    }
+    .bg-scan{
+      background:repeating-linear-gradient(to bottom,rgba(255,255,255,.018) 0 1px,transparent 1px 4px);
+      opacity:.5;
+    }
+    html.light .bg-scan{display:none}
 
-    .skill-card {
-      position: relative;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(99, 102, 241, 0.1);
-      transition: all 0.3s ease;
-    }
+    /* ============ layout ============ */
+    .wrap{position:relative;z-index:1}
+    .container{width:100%;max-width:1120px;margin:0 auto;padding:0 24px}
+    section{position:relative;padding:104px 0}
+    @media(max-width:640px){section{padding:72px 0}}
 
-    .dark .skill-card {
-      background: rgba(45, 46, 50, 0.8);
-      border: 1px solid rgba(99, 102, 241, 0.2);
+    /* ============ nav ============ */
+    header{position:sticky;top:0;z-index:50}
+    .nav{
+      display:flex;align-items:center;gap:16px;
+      margin:14px auto;max-width:1120px;
+      padding:10px 14px;border-radius:16px;
+      background:color-mix(in srgb,var(--bg) 72%,transparent);
+      backdrop-filter:blur(18px) saturate(160%);
+      -webkit-backdrop-filter:blur(18px) saturate(160%);
+      border:1px solid var(--line);
+      box-shadow:0 10px 30px -18px rgba(0,0,0,.7);
     }
+    @media(max-width:1170px){.nav{margin:14px 24px}}
+    .brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:-.01em}
+    .brand .mark{
+      width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--cyan),var(--indigo));
+      color:#04070f;font-size:14px;font-weight:700;
+      box-shadow:0 0 0 1px var(--line-strong),0 6px 18px -6px var(--glow-a);
+    }
+    .brand .dim{color:var(--fg-faint);font-weight:500}
+    .nav-links{display:flex;align-items:center;gap:4px;margin-left:auto}
+    .nav-link{
+      font-family:var(--mono);font-size:12.5px;color:var(--fg-dim);
+      padding:7px 11px;border-radius:9px;transition:.2s;white-space:nowrap;
+    }
+    .nav-link:hover{color:var(--fg);background:var(--surface-2)}
+    .nav-sep{width:1px;height:20px;background:var(--line);margin:0 6px}
+    .icon-btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:6px;
+      height:34px;min-width:34px;padding:0 10px;border-radius:10px;
+      border:1px solid var(--line);background:var(--surface);
+      color:var(--fg-dim);font-family:var(--mono);font-size:12px;font-weight:500;
+      cursor:pointer;transition:.2s;
+    }
+    .icon-btn:hover{color:var(--fg);border-color:var(--line-strong);background:var(--surface-2);transform:translateY(-1px)}
+    .icon-btn svg{width:15px;height:15px}
+    .btn-blog{
+      color:var(--bg);background:linear-gradient(135deg,var(--cyan),var(--indigo));
+      border-color:transparent;font-weight:700;
+    }
+    html.light .btn-blog{color:#fff}
+    .btn-blog:hover{color:var(--bg);filter:brightness(1.08)}
+    html.light .btn-blog:hover{color:#fff}
+    @media(max-width:860px){.nav-links .nav-link{display:none}}
 
-    .skill-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
-      border-color: rgba(99, 102, 241, 0.3);
+    /* ============ hero ============ */
+    .hero{min-height:calc(100vh - 60px);display:flex;flex-direction:column;justify-content:center;padding-top:40px;padding-bottom:60px}
+    .status{
+      display:inline-flex;align-items:center;gap:9px;
+      padding:6px 14px 6px 10px;border-radius:999px;
+      border:1px solid var(--line);background:var(--surface);
+      font-family:var(--mono);font-size:12px;color:var(--fg-dim);letter-spacing:.02em;
     }
+    .dot{position:relative;width:7px;height:7px;border-radius:50%;background:var(--mint)}
+    .dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;background:var(--mint);opacity:.35;animation:ping 2s cubic-bezier(0,0,.2,1) infinite}
+    @keyframes ping{0%{transform:scale(.6);opacity:.5}80%,100%{transform:scale(2);opacity:0}}
 
-    .dark .skill-card:hover {
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+    .eyebrow{font-family:var(--mono);font-size:13px;color:var(--fg-faint);margin-top:32px}
+    .eyebrow .prompt{color:var(--cyan)}
+    h1.name{
+      margin-top:12px;
+      font-size:clamp(52px,9vw,104px);
+      font-weight:800;letter-spacing:-.045em;line-height:1;
+      background:linear-gradient(120deg,var(--fg) 8%,var(--cyan) 48%,var(--indigo) 88%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
     }
+    .role{
+      margin-top:14px;font-family:var(--mono);
+      font-size:clamp(16px,3.2vw,26px);font-weight:500;color:var(--fg);
+      min-height:1.4em;
+    }
+    .role .caret{display:inline-block;width:.6ch;background:var(--cyan);color:transparent;animation:blink 1s steps(1) infinite;margin-left:2px}
+    @keyframes blink{50%{opacity:0}}
+    .lede{margin-top:22px;max-width:620px;font-size:clamp(15px,1.6vw,17.5px);color:var(--fg-dim)}
 
-    .skill-icon {
-      position: relative;
-      display: inline-block;
-      background: rgba(99, 102, 241, 0.1);
-      padding: 1rem;
-      border-radius: 1rem;
-      margin-bottom: 1rem;
+    .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+    .btn{
+      display:inline-flex;align-items:center;gap:9px;
+      padding:13px 22px;border-radius:12px;
+      font-size:14.5px;font-weight:600;cursor:pointer;transition:.22s;
+      border:1px solid var(--line-strong);
     }
+    .btn-primary{
+      background:linear-gradient(135deg,var(--cyan),var(--indigo));
+      color:#04070f;border-color:transparent;
+      box-shadow:0 14px 34px -14px var(--glow-b);
+    }
+    html.light .btn-primary{color:#fff}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 44px -14px var(--glow-b);filter:brightness(1.06)}
+    .btn-ghost{background:var(--surface);color:var(--fg)}
+    .btn-ghost:hover{transform:translateY(-2px);background:var(--surface-2);border-color:var(--cyan)}
+    .btn .arr{transition:transform .22s}
+    .btn:hover .arr{transform:translateX(3px)}
 
-    .dark .skill-icon {
-      background: rgba(99, 102, 241, 0.15);
+    /* marquee */
+    .marquee{margin-top:56px;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0}
+    .marquee::before,.marquee::after{content:'';position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none}
+    .marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+    .marquee::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+    .marquee-track{display:flex;width:max-content;animation:slide 32s linear infinite}
+    .marquee:hover .marquee-track{animation-play-state:paused}
+    @keyframes slide{to{transform:translateX(-50%)}}
+    .marquee-item{
+      display:inline-flex;align-items:center;gap:8px;padding:0 26px;
+      font-family:var(--mono);font-size:12.5px;color:var(--fg-faint);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
     }
+    .marquee-item i{width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:.7;font-style:normal}
 
-    .skill-level {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: #6366f1;
-      transform: scaleX(0);
-      transition: transform 0.2s ease;
-    }
+    /* ============ section heading ============ */
+    .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:44px;flex-wrap:wrap}
+    .sec-num{font-family:var(--mono);font-size:12.5px;color:var(--cyan);letter-spacing:.14em}
+    .sec-title{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.03em}
+    .sec-rule{flex:1;height:1px;min-width:40px;background:linear-gradient(90deg,var(--line-strong),transparent)}
+    .sec-sub{font-family:var(--mono);font-size:12.5px;color:var(--fg-faint)}
 
-    .dark .skill-level {
-      background: #818cf8;
+    /* ============ about ============ */
+    .about-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:24px;align-items:start}
+    @media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+    .panel{
+      border:1px solid var(--line);border-radius:16px;background:var(--surface);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+      overflow:hidden;
     }
+    .panel-bar{
+      display:flex;align-items:center;gap:8px;padding:11px 16px;
+      border-bottom:1px solid var(--line);background:var(--surface);
+      font-family:var(--mono);font-size:12px;color:var(--fg-faint);
+    }
+    .tl{display:flex;gap:6px;margin-right:6px}
+    .tl span{width:10px;height:10px;border-radius:50%;background:var(--line-strong)}
+    .tl span:nth-child(1){background:#ff5f57}.tl span:nth-child(2){background:#febc2e}.tl span:nth-child(3){background:#28c840}
+    .panel-body{padding:26px}
+    .panel-body p+p{margin-top:16px}
+    .panel-body p{color:var(--fg-dim);font-size:15.5px}
+    .code-line{font-family:var(--mono);font-size:12.5px;color:var(--fg-faint);margin-bottom:18px}
+    .code-line .c{color:var(--mint)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;padding-top:22px;border-top:1px dashed var(--line)}
+    .chip{
+      font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;
+      padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+      background:var(--surface-2);color:var(--fg-dim);transition:.2s;
+    }
+    .chip:hover{color:var(--cyan);border-color:var(--cyan)}
+    .stats{display:grid;gap:14px}
+    .stat{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--surface);transition:.25s}
+    .stat:hover{border-color:var(--line-strong);transform:translateY(-2px)}
+    .stat b{
+      display:block;font-family:var(--mono);font-size:32px;font-weight:700;letter-spacing:-.03em;
+      background:linear-gradient(120deg,var(--cyan),var(--indigo));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .stat span{display:block;margin-top:4px;font-size:13px;color:var(--fg-faint)}
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+    /* ============ stack ============ */
+    .stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+    .tech{
+      position:relative;display:flex;align-items:center;gap:12px;
+      padding:16px;border-radius:14px;border:1px solid var(--line);
+      background:var(--surface);overflow:hidden;transition:.25s;
     }
+    .tech::before{
+      content:'';position:absolute;inset:0;opacity:0;transition:.3s;
+      background:radial-gradient(120px 80px at var(--mx,50%) var(--my,50%),var(--glow-a),transparent 70%);
+    }
+    .tech:hover{transform:translateY(-3px);border-color:var(--line-strong);box-shadow:var(--shadow)}
+    .tech:hover::before{opacity:1}
+    .tech img{width:26px;height:26px;position:relative;z-index:1;flex-shrink:0}
+    .tech .meta{position:relative;z-index:1;min-width:0}
+    .tech .n{display:block;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tech .k{display:block;font-family:var(--mono);font-size:10.5px;color:var(--fg-faint);letter-spacing:.08em;text-transform:uppercase}
+    .mono-icon img{filter:invert(1)}
+    html.light .mono-icon img{filter:none}
 
-    .animate-float {
-      animation: float 4s ease-in-out infinite;
+    /* ============ projects ============ */
+    .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+    .proj{
+      position:relative;display:flex;flex-direction:column;
+      padding:24px;border-radius:16px;border:1px solid var(--line);
+      background:var(--surface);overflow:hidden;transition:.28s;min-height:236px;
     }
+    .proj::after{
+      content:'';position:absolute;inset:0;border-radius:16px;padding:1px;opacity:0;transition:.3s;
+      background:linear-gradient(135deg,var(--cyan),transparent 45%,var(--indigo));
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+    }
+    .proj:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .proj:hover::after{opacity:1}
+    .proj-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .proj-idx{font-family:var(--mono);font-size:12px;color:var(--fg-faint);letter-spacing:.1em}
+    .badge{
+      font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+      padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--fg-faint);background:var(--surface-2);
+    }
+    .badge.live{color:var(--mint);border-color:color-mix(in srgb,var(--mint) 40%,transparent)}
+    .proj h3{margin-top:16px;font-size:18px;font-weight:650;letter-spacing:-.02em}
+    .proj p{margin-top:9px;font-size:14px;color:var(--fg-dim)}
+    .proj .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:20px}
+    .tag{
+      font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:7px;
+      border:1px solid var(--line);color:var(--fg-dim);background:var(--surface-2);
+    }
+    .proj-go{
+      display:inline-flex;align-items:center;gap:6px;margin-top:16px;
+      font-family:var(--mono);font-size:12px;color:var(--cyan);transition:.22s;
+    }
+    .proj:hover .proj-go{gap:10px}
 
-    .animate-pulse {
-      animation: none;
+    /* ============ contact ============ */
+    .contact-card{
+      border:1px solid var(--line);border-radius:22px;padding:56px 32px;text-align:center;
+      background:
+        radial-gradient(600px 260px at 50% 0%,var(--glow-b),transparent 70%),
+        var(--surface);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     }
+    .contact-card h2{font-size:clamp(28px,5vw,42px);font-weight:750;letter-spacing:-.035em}
+    .contact-card p{margin-top:14px;color:var(--fg-dim);font-size:16px}
+    .contact-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:32px}
+    .clink{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:13px 22px;border-radius:12px;border:1px solid var(--line-strong);
+      background:var(--surface-2);font-size:14.5px;font-weight:600;transition:.24s;
+    }
+    .clink:hover{transform:translateY(-2px);border-color:var(--cyan);color:var(--cyan)}
+    .clink svg{width:18px;height:18px}
 
-    /* 隐藏横向滚动条，兼容主流浏览器 */
-    .hide-scrollbar {
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE 10+ */
-    }
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none; /* Chrome/Safari/Webkit */
-    }
+    /* ============ footer ============ */
+    footer{border-top:1px solid var(--line);padding:28px 0 40px}
+    .foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:12px;color:var(--fg-faint)}
+    .foot .up{transition:.2s}
+    .foot .up:hover{color:var(--cyan)}
 
-    /* 项目卡片新样式 */
-    .project-card {
-      position: relative;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(99, 102, 241, 0.1);
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .dark .project-card {
-      background: rgba(45, 46, 50, 0.9);
-      border: 1px solid rgba(99, 102, 241, 0.2);
-    }
-
-    .project-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
-      border-color: rgba(99, 102, 241, 0.3);
-    }
-
-    .dark .project-card:hover {
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
-    }
-
-    .project-icon {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(99, 102, 241, 0.1);
-      padding: 0.75rem;
-      border-radius: 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .dark .project-icon {
-      background: rgba(99, 102, 241, 0.15);
-    }
-
-    .tech-tag {
-      background: rgba(99, 102, 241, 0.1);
-      color: #6366f1;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-
-    .dark .tech-tag {
-      background: rgba(99, 102, 241, 0.15);
-      color: #818cf8;
-    }
-
-    .tech-tag:hover {
-      background: rgba(99, 102, 241, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .coming-soon {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(99, 102, 241, 0.1);
-      color: #6366f1;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    .dark .coming-soon {
-      background: rgba(99, 102, 241, 0.15);
-      color: #818cf8;
-    }
-
-    .project-link {
-      position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.25rem 0.5rem;
-      background: rgba(99, 102, 241, 0.1);
-      color: #6366f1;
-      border-radius: 0.375rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-
-    .dark .project-link {
-      background: rgba(99, 102, 241, 0.15);
-      color: #818cf8;
-    }
-
-    .project-link:hover {
-      background: rgba(99, 102, 241, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .project-card {
-      padding-bottom: 3rem; /* 减小底部padding */
-    }
-
-    .contact-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(99, 102, 241, 0.1);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      transition: all 0.3s ease;
-    }
-
-    .dark .contact-card {
-      background: rgba(17, 24, 39, 0.95);
-      border: 1px solid rgba(99, 102, 241, 0.2);
-    }
-
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 1.5rem;
-      color: #6366f1;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      border-bottom: 2px solid transparent;
-    }
-
-    .dark .contact-link {
-      color: #818cf8;
-    }
-
-    .contact-link:hover {
-      border-bottom-color: currentColor;
-      transform: translateY(-1px);
-    }
-
-    .contact-link svg {
-      transition: transform 0.2s ease;
-    }
-
-    .contact-link:hover svg {
-      transform: scale(1.1);
-    }
-
-    /* 添加顶部导航按钮样式 */
-    .nav-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-
-    .nav-button.blog {
-      background: rgba(99, 102, 241, 0.1);
-      color: #6366f1;
-    }
-
-    .dark .nav-button.blog {
-      background: rgba(99, 102, 241, 0.15);
-      color: #818cf8;
-    }
-
-    .nav-button.blog:hover {
-      background: rgba(99, 102, 241, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .nav-button.theme {
-      padding: 0.5rem;
-      background: rgba(99, 102, 241, 0.1);
-      color: #6366f1;
-    }
-
-    .dark .nav-button.theme {
-      background: rgba(99, 102, 241, 0.15);
-      color: #818cf8;
-    }
-
-    .nav-button.theme:hover {
-      background: rgba(99, 102, 241, 0.2);
-      transform: translateY(-1px);
+    /* ============ reveal ============ */
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+    .reveal.in{opacity:1;transform:none}
+    @media(prefers-reduced-motion:reduce){
+      .reveal{opacity:1;transform:none;transition:none}
+      .marquee-track{animation:none}
+      .dot::after{animation:none}
     }
   </style>
 </head>
-<body class="font-sans bg-gradient-to-br from-white to-blue-50 text-gray-800 transition-all duration-500" id="body">
+<body>
+  <div class="bg-layer bg-glow"></div>
+  <div class="bg-layer bg-grid"></div>
+  <div class="bg-layer bg-scan"></div>
 
-  <!-- Navigation Buttons -->
-  <div class="absolute top-4 right-4 flex items-center gap-2">
-    <button onclick="toggleLanguage()" class="nav-button lang hover:shadow-md min-w-[72px] justify-center">
-      <span id="lang-icon" class="text-base">🇺🇸</span>
-      <span id="lang-text" class="text-sm">EN</span>
-    </button>
-    <button onclick="toggleTheme()" class="nav-button hover:shadow-md w-10 h-10 p-0 flex items-center justify-center">
-      <span id="theme-icon" class="text-base">☀️</span>
-    </button>
-    <div class="h-5 w-px bg-primary/20 mx-1"></div>
-    <a href="https://blog.aisheishei.me" target="_blank"
-       class="nav-button blog hover:shadow-md group">
-      <span class="lang-switch text-sm" data-en="Blog" data-zh="博客">Blog</span>
-      <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
-        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
-      </svg>
-    </a>
+  <div class="wrap">
+    <!-- ============ NAV ============ -->
+    <header>
+      <nav class="nav container-none">
+        <a href="#top" class="brand">
+          <span class="mark">Y</span>
+          <span>yaming<span class="dim">.dev</span></span>
+        </a>
+        <div class="nav-links">
+          <a class="nav-link" href="#about"><span class="lang-switch" data-zh="关于" data-en="about">about</span></a>
+          <a class="nav-link" href="#stack"><span class="lang-switch" data-zh="技术栈" data-en="stack">stack</span></a>
+          <a class="nav-link" href="#projects"><span class="lang-switch" data-zh="项目" data-en="projects">projects</span></a>
+          <a class="nav-link" href="#contact"><span class="lang-switch" data-zh="联系" data-en="contact">contact</span></a>
+          <span class="nav-sep"></span>
+          <button class="icon-btn" onclick="toggleLanguage()" aria-label="Switch language">
+            <span id="lang-text">EN</span>
+          </button>
+          <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+          <a class="icon-btn btn-blog" href="https://blog.aisheishei.me" target="_blank" rel="noopener">
+            <span class="lang-switch" data-zh="博客" data-en="Blog">Blog</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top" style="padding-top:24px">
+      <div class="container">
+        <span class="status">
+          <span class="dot"></span>
+          <span class="lang-switch" data-zh="当前开放合作与工作机会" data-en="Available for new opportunities">Available for new opportunities</span>
+        </span>
+
+        <div class="eyebrow"><span class="prompt">~</span> $ whoami</div>
+        <h1 class="name">Yaming</h1>
+        <div class="role"><span id="typed"></span><span class="caret">_</span></div>
+
+        <p class="lede">
+          <span class="lang-switch"
+            data-zh="十年工程经验，专注高并发系统架构、性能优化与云原生交付 —— 从数据库到 CI/CD，把复杂系统做得稳定、可扩展、跑得快。"
+            data-en="Ten years of engineering. I design high-concurrency architectures, tune performance down to the query, and ship cloud-native systems that stay fast, stable and easy to scale.">
+            Ten years of engineering.
+          </span>
+        </p>
+
+        <div class="cta">
+          <a class="btn btn-primary" href="#contact">
+            <span class="lang-switch" data-zh="联系我" data-en="Get in touch">Get in touch</span>
+            <span class="arr">→</span>
+          </a>
+          <a class="btn btn-ghost" href="#projects">
+            <span class="lang-switch" data-zh="查看项目" data-en="View projects">View projects</span>
+            <span class="arr">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="marquee">
+        <div class="marquee-track" id="marquee"></div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about">
+      <div class="container">
+        <div class="sec-head reveal">
+          <span class="sec-num">01</span>
+          <h2 class="sec-title"><span class="lang-switch" data-zh="关于我" data-en="About">About</span></h2>
+          <span class="sec-rule"></span>
+          <span class="sec-sub">cat about.md</span>
+        </div>
+
+        <div class="about-grid">
+          <div class="panel reveal">
+            <div class="panel-bar">
+              <span class="tl"><span></span><span></span><span></span></span>
+              <span>~/yaming/about.md</span>
+            </div>
+            <div class="panel-body">
+              <div class="code-line"><span class="c">#</span> Senior Full Stack &amp; DevOps Engineer</div>
+              <p>
+                <span class="lang-switch"
+                  data-zh="资深全栈工程师，十年开发经验，擅长构建高并发、高性能、可扩展的应用系统。在数据库优化、微服务架构与 DevOps 落地上有大量实战积累，同时精通前端工程化与响应式开发，能够端到端交付流畅的产品体验。"
+                  data-en="Senior full-stack developer with 10 years of experience building high-concurrency, high-performance and scalable applications. Deep hands-on background in database optimization, microservice architecture and DevOps, paired with modern front-end engineering to deliver a smooth end-to-end product experience.">
+                </span>
+              </p>
+              <p>
+                <span class="lang-switch"
+                  data-zh="熟悉云计算、自动化部署与分布式存储，长期专注于系统性能优化，持续提升应用的稳定性、可观测性与可维护性。"
+                  data-en="Comfortable across cloud computing, automated deployment and distributed storage — consistently focused on system performance, and on making applications more stable, observable and maintainable.">
+                </span>
+              </p>
+              <div class="chips">
+                <span class="chip lang-switch" data-zh="高并发" data-en="High Concurrency">High Concurrency</span>
+                <span class="chip lang-switch" data-zh="微服务" data-en="Microservices">Microservices</span>
+                <span class="chip">DevOps</span>
+                <span class="chip lang-switch" data-zh="云原生" data-en="Cloud Native">Cloud Native</span>
+                <span class="chip lang-switch" data-zh="自动化部署" data-en="CI / CD">CI / CD</span>
+                <span class="chip lang-switch" data-zh="分布式存储" data-en="Distributed Storage">Distributed Storage</span>
+                <span class="chip lang-switch" data-zh="性能优化" data-en="Performance Tuning">Performance Tuning</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat reveal"><b>10+</b><span class="lang-switch" data-zh="年工程经验" data-en="Years of engineering">Years of engineering</span></div>
+            <div class="stat reveal"><b>7+</b><span class="lang-switch" data-zh="上线交付的产品" data-en="Products shipped">Products shipped</span></div>
+            <div class="stat reveal"><b>15</b><span class="lang-switch" data-zh="日常使用的核心技术" data-en="Core technologies in daily use">Core technologies in daily use</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STACK ============ -->
+    <section id="stack">
+      <div class="container">
+        <div class="sec-head reveal">
+          <span class="sec-num">02</span>
+          <h2 class="sec-title"><span class="lang-switch" data-zh="技术栈" data-en="Tech Stack">Tech Stack</span></h2>
+          <span class="sec-rule"></span>
+          <span class="sec-sub">ls -la ./stack</span>
+        </div>
+        <div class="stack-grid" id="stack-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects">
+      <div class="container">
+        <div class="sec-head reveal">
+          <span class="sec-num">03</span>
+          <h2 class="sec-title"><span class="lang-switch" data-zh="项目" data-en="Projects">Projects</span></h2>
+          <span class="sec-rule"></span>
+          <span class="sec-sub">git log --oneline</span>
+        </div>
+        <div class="proj-grid" id="proj-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-card reveal">
+          <h2><span class="lang-switch" data-zh="一起做点有意思的东西" data-en="Let's build something solid">Let's build something solid</span></h2>
+          <p>
+            <span class="lang-switch"
+              data-zh="无论是架构咨询、系统重构，还是从 0 到 1 的产品开发，欢迎随时聊聊。"
+              data-en="Architecture consulting, system refactors, or a product from zero to one — always happy to talk.">
+            </span>
+          </p>
+          <div class="contact-links">
+            <a class="clink" href="https://github.com/tashuo" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a class="clink" href="https://blog.aisheishei.me" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4z"/><path d="M8 8h6M8 12h6M8 16h4"/></svg>
+              <span class="lang-switch" data-zh="博客" data-en="Blog">Blog</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container foot">
+        <span>© 2026 Yaming · <span class="lang-switch" data-zh="干就完了" data-en="Just ship it">Just ship it</span></span>
+        <a class="up" href="#top">back to top ↑</a>
+      </div>
+    </footer>
   </div>
 
   <script>
-    // Theme toggle
-    function toggleTheme() {
-      document.documentElement.classList.toggle('dark');
-      const icon = document.getElementById('theme-icon');
-      icon.textContent = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
-    }
+  (function () {
+    'use strict';
+    var DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
 
-    // Language toggle
-    let currentLang = 'en';
-    
-    function toggleLanguage() {
-      console.log(currentLang)
-      currentLang = currentLang === 'zh' ? 'en' : 'zh';
-      
-      const langIcon = document.getElementById('lang-icon');
-      const langText = document.getElementById('lang-text');
-      if (currentLang === 'en') {
-        langIcon.textContent = '🇺🇸';
-        langText.textContent = 'EN';
-      } else {
-        langIcon.textContent = '🇨🇳';
-        langText.textContent = '中文';
+    /* ---------- data ---------- */
+    var STACK = [
+      ['React',        'Frontend',  'react/react-original.svg'],
+      ['Next.js',      'Framework', 'nextjs/nextjs-original.svg', true],
+      ['TypeScript',   'Language',  'typescript/typescript-original.svg'],
+      ['TailwindCSS',  'Styling',   'tailwindcss/tailwindcss-original.svg'],
+      ['Vue.js',       'Frontend',  'vuejs/vuejs-original.svg'],
+      ['Node.js',      'Backend',   'nodejs/nodejs-original.svg'],
+      ['NestJS',       'Backend',   'nestjs/nestjs-original.svg'],
+      ['Laravel',      'Backend',   'laravel/laravel-original.svg'],
+      ['PHP',          'Language',  'php/php-original.svg'],
+      ['MySQL',        'Database',  'mysql/mysql-original.svg'],
+      ['MongoDB',      'Database',  'mongodb/mongodb-original.svg'],
+      ['Redis',        'Cache',     'redis/redis-original.svg'],
+      ['Docker',       'DevOps',    'docker/docker-original.svg'],
+      ['Linux',        'Infra',     'linux/linux-original.svg'],
+      ['Cloudflare',   'Edge',      'cloudflare/cloudflare-original.svg']
+    ];
+
+    var PROJECTS = [
+      {
+        url: 'https://timespeaker.com/',
+        zh: ['TimeSpeaker · AI 对话历史人物', '与爱因斯坦、拿破仑、苏格拉底等历史人物实时对话的 AI 平台，支持文字与语音、主题课程与「思想交锋」双人辩论。Next.js 全栈，构建于 Cloudflare 全家桶之上。'],
+        en: ['TimeSpeaker · Talk to History', 'An AI platform for real-time conversations with historical figures — text and voice, guided courses, and an Arena where two minds from different eras debate the same question. Full-stack Next.js, running entirely on the Cloudflare stack.'],
+        tags: ['Next.js', 'Cloudflare Workers', 'D1', 'R2', 'AI'], live: true
+      },
+      {
+        url: 'https://goflashdeals.com',
+        zh: ['海外导购平台', '面向海外用户的现代化电商导购平台，基于 Nest.js + Next.js 构建，服务端渲染与接口层完全解耦。'],
+        en: ['Global Shopping Platform', 'A modern cross-border e-commerce discovery platform built on Nest.js and Next.js, with SSR fully decoupled from the API layer.'],
+        tags: ['Nest.js', 'Next.js', 'SSR'], live: true
+      },
+      {
+        url: 'https://earsonme.com/',
+        zh: ['播客聚合平台', '聚合多源播客内容的实时平台，使用 Livewire 与 Alpine.js 实现低延迟交互体验。'],
+        en: ['Podcast Aggregation Platform', 'A real-time platform aggregating podcasts from multiple sources, with low-latency interaction via Livewire and Alpine.js.'],
+        tags: ['Livewire', 'Alpine.js', 'Laravel'], live: true
+      },
+      {
+        url: 'https://nextjs-mui-learn.vercel.app',
+        zh: ['实时社区', '基于 Nest.js、Next.js 与 Socket.io 的实时社区系统，支持即时消息与动态推送。'],
+        en: ['Real-time Community', 'A community system built with Nest.js, Next.js and Socket.io, supporting instant messaging and live feed updates.'],
+        tags: ['Nest.js', 'Next.js', 'Socket.io'], live: true
+      },
+      {
+        url: 'https://exercise.aisheishei.me',
+        zh: ['题库与模拟考试平台', '在线题库与模拟考试系统，涵盖组卷、判分与错题追踪的完整链路。'],
+        en: ['Question Bank & Mock Exam', 'An online exam system covering the full loop: paper generation, auto-grading and mistake tracking.'],
+        tags: ['Livewire', 'Alpine.js', 'MySQL'], live: true
+      },
+      {
+        zh: ['企业内部协作平台', '基于群晖与 Discuz 搭建的企业级协作与知识沉淀方案，覆盖文件、权限与流程。'],
+        en: ['Enterprise Collaboration Platform', 'An internal collaboration and knowledge base built on Synology and Discuz, covering files, permissions and workflows.'],
+        tags: ['Synology', 'Discuz', 'Self-hosted'],
+        badgeZh: '内部系统', badgeEn: 'Internal'
+      },
+      {
+        zh: ['轰趴馆微信小程序', '派对场地预订小程序，基于 Hyperf + Vue.js，支持排期、下单与核销全流程。'],
+        en: ['Party Space Mini Program', 'A WeChat mini program for party venue booking on Hyperf and Vue.js — scheduling, orders and check-in end to end.'],
+        tags: ['Hyperf', 'Vue.js', 'WeChat'],
+        badgeZh: '小程序', badgeEn: 'Mini App'
       }
-      updateContent();
+    ];
+
+    /* ---------- render ---------- */
+    var grid = document.getElementById('stack-grid');
+    STACK.forEach(function (t) {
+      var el = document.createElement('div');
+      el.className = 'tech reveal' + (t[3] ? ' mono-icon' : '');
+      el.innerHTML =
+        '<img loading="lazy" src="' + DEVICON + t[2] + '" alt="' + t[0] + '" onerror="this.style.display=\'none\'">' +
+        '<span class="meta"><span class="n">' + t[0] + '</span><span class="k">' + t[1] + '</span></span>';
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+      grid.appendChild(el);
+    });
+
+    var pg = document.getElementById('proj-grid');
+    PROJECTS.forEach(function (p, i) {
+      var el = document.createElement(p.url ? 'a' : 'div');
+      el.className = 'proj reveal';
+      if (p.url) { el.href = p.url; el.target = '_blank'; el.rel = 'noopener'; }
+      var badge = p.url
+        ? '<span class="badge live">live</span>'
+        : '<span class="badge lang-switch" data-zh="' + p.badgeZh + '" data-en="' + p.badgeEn + '">' + p.badgeEn + '</span>';
+      el.innerHTML =
+        '<div class="proj-top"><span class="proj-idx">' + String(i + 1).padStart(2, '0') + '</span>' + badge + '</div>' +
+        '<h3><span class="lang-switch" data-zh="' + p.zh[0] + '" data-en="' + p.en[0] + '">' + p.en[0] + '</span></h3>' +
+        '<p><span class="lang-switch" data-zh="' + p.zh[1] + '" data-en="' + p.en[1] + '">' + p.en[1] + '</span></p>' +
+        '<div class="tags">' + p.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
+        (p.url ? '<span class="proj-go"><span class="lang-switch" data-zh="访问站点" data-en="Visit site">Visit site</span> →</span>' : '');
+      pg.appendChild(el);
+    });
+
+    var mq = document.getElementById('marquee');
+    var words = STACK.map(function (t) { return t[0]; });
+    var html = words.concat(words).map(function (w) {
+      return '<span class="marquee-item"><i></i>' + w + '</span>';
+    }).join('');
+    mq.innerHTML = html;
+
+    /* ---------- theme ---------- */
+    var moon = document.getElementById('icon-moon');
+    var sun = document.getElementById('icon-sun');
+    function applyTheme(t) {
+      document.documentElement.classList.toggle('light', t === 'light');
+      moon.style.display = t === 'light' ? 'none' : '';
+      sun.style.display = t === 'light' ? '' : 'none';
+      var m = document.querySelector('meta[name=theme-color]');
+      if (m) m.setAttribute('content', t === 'light' ? '#f7f9fc' : '#05070d');
     }
+    var savedTheme = 'dark';
+    try { savedTheme = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    applyTheme(savedTheme);
+    window.toggleTheme = function () {
+      var next = document.documentElement.classList.contains('light') ? 'dark' : 'light';
+      applyTheme(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    };
+
+    /* ---------- language ---------- */
+    var ROLES = {
+      en: ['Full Stack Engineer', 'DevOps Engineer', 'Open Source Enthusiast'],
+      zh: ['全栈工程师', 'DevOps 工程师', '开源爱好者']
+    };
+    var currentLang = 'en';
+    try { currentLang = localStorage.getItem('lang') || 'en'; } catch (e) {}
 
     function updateContent() {
-      document.querySelectorAll('.lang-switch').forEach(element => {
-        const newText = element.dataset[currentLang];
-        if (element.tagName.toLowerCase() === 'title') {
-          document.title = newText;
-        } else {
-          element.textContent = newText;
-        }
+      document.querySelectorAll('.lang-switch').forEach(function (el) {
+        var v = el.dataset[currentLang];
+        if (v == null) return;
+        if (el.tagName.toLowerCase() === 'title') document.title = v;
+        else el.textContent = v;
       });
+      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+      document.getElementById('lang-text').textContent = currentLang === 'en' ? 'EN' : '中';
+      restartTyping();
+    }
+    window.toggleLanguage = function () {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      try { localStorage.setItem('lang', currentLang); } catch (e) {}
+      updateContent();
+    };
+
+    /* ---------- typing ---------- */
+    var typed = document.getElementById('typed');
+    var tTimer = null, tIdx = 0, tPos = 0, tDel = false;
+    function restartTyping() {
+      clearTimeout(tTimer);
+      tIdx = 0; tPos = 0; tDel = false;
+      typed.textContent = '';
+      tick();
+    }
+    function tick() {
+      var list = ROLES[currentLang];
+      var word = list[tIdx % list.length];
+      tPos += tDel ? -1 : 1;
+      typed.textContent = word.slice(0, tPos);
+      var delay = tDel ? 45 : 90;
+      if (!tDel && tPos === word.length) { tDel = true; delay = 1800; }
+      else if (tDel && tPos === 0) { tDel = false; tIdx++; delay = 320; }
+      tTimer = setTimeout(tick, delay);
     }
 
-    // Initialize content in English
-    window.addEventListener('DOMContentLoaded', (event) => {
-      updateContent();
+    updateContent();
+
+    /* ---------- reveal on scroll ---------- */
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el, i) {
+      el.style.transitionDelay = (Math.min(i, 8) * 45) + 'ms';
+      io.observe(el);
     });
+  })();
   </script>
-
-  <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 dark:text-white bg-gradient-to-br from-white via-blue-50 to-purple-50 dark:from-dark-bg dark:via-gray-900 dark:to-gray-800">
-    <!-- 头像部分 -->
-    <div class="relative mb-8">
-      <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="avatar" 
-           class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg animate-float border-4 border-white dark:border-dark-primary" />
-      <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-primary text-white px-3 py-1 rounded-full text-xs font-mono">
-        Available for hire
-      </div>
-    </div>
-
-    <!-- 标题和介绍 -->
-    <div class="space-y-4 max-w-2xl">
-      <h1 class="text-3xl sm:text-5xl font-extrabold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-        <span class="font-mono">I'm</span> Yaming
-      </h1>
-      <div class="flex flex-wrap justify-center gap-2 text-sm sm:text-base text-gray-600 dark:text-gray-300">
-        <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800">
-          <span class="lang-switch" data-zh="全栈工程师" data-en="Full Stack Engineer">全栈工程师</span>
-        </span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800">DevOps</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800">
-          <span class="lang-switch" data-zh="开源爱好者" data-en="Open Source Enthusiast">开源爱好者</span>
-        </span>
-      </div>
-      <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-        <span class="typewriter lang-switch" 
-              data-zh="专注于构建高性能、可扩展的 Web 应用" 
-              data-en="Focused on building high-performance, scalable web applications">
-          专注于构建高性能、可扩展的 Web 应用
-        </span>
-      </p>
-    </div>
-
-    <!-- 行动按钮 -->
-    <div class="mt-8 flex flex-wrap justify-center gap-4">
-      <a href="#contact" 
-         class="bg-primary hover:bg-indigo-600 text-white px-6 py-3 rounded-lg text-base sm:text-lg font-semibold shadow transition transform hover:scale-105 flex items-center gap-2">
-        <span class="lang-switch" data-zh="👋 联系我" data-en="👋 Contact Me">👋 联系我</span>
-        <span class="text-sm">→</span>
-      </a>
-      <a href="#projects" 
-         class="bg-white dark:bg-gray-800 text-primary dark:text-dark-primary px-6 py-3 rounded-lg text-base sm:text-lg font-semibold shadow transition transform hover:scale-105 flex items-center gap-2 border border-primary dark:border-dark-primary">
-        <span class="lang-switch" data-zh="💼 项目" data-en="💼 Projects">💼 项目</span>
-        <span class="text-sm">→</span>
-      </a>
-    </div>
-
-    <!-- 技术栈预览 -->
-    <div class="mt-12 flex flex-wrap justify-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-green-500"></span>
-        React.js
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-        Node.js
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
-        Laravel
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-        Docker
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
-        TailwindCSS
-      </span>
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-        DevOps
-      </span>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section class="py-12 sm:py-20 px-4 sm:px-6 bg-white dark:bg-gray-900">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-        <span class="lang-switch" data-zh="关于我" data-en="About Me">关于我</span>
-      </h2>
-      <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
-        <p class="text-base sm:text-lg font-light text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
-          <span class="lang-switch" 
-                data-zh="资深全栈开发工程师，拥有10年开发经验，擅长构建高并发、高性能、可扩展的应用程序。具备丰富的数据库优化、微服务架构、DevOps经验，同时精通前端响应式开发，能够打造流畅的用户体验。" 
-                data-en="Senior full-stack developer with 10 years of experience, specialized in building high-concurrency, high-performance, and scalable applications. Extensive experience in database optimization, microservices architecture, and DevOps, along with expertise in responsive front-end development to create smooth user experiences.">
-            资深全栈开发工程师，拥有10年开发经验，擅长构建高并发、高性能、可扩展的应用程序。具备丰富的数据库优化、微服务架构、DevOps经验，同时精通前端响应式开发，能够打造流畅的用户体验。
-          </span>
-        </p>
-        <p class="text-base sm:text-lg font-light text-gray-700 dark:text-gray-300 leading-relaxed">
-          <span class="lang-switch" 
-                data-zh="熟悉云计算、自动化部署、分布式存储等技术，致力于优化系统性能，提升应用稳定性和可维护性。" 
-                data-en="Proficient in cloud computing, automated deployment, and distributed storage technologies, dedicated to optimizing system performance and improving application stability and maintainability.">
-            熟悉云计算、自动化部署、分布式存储等技术，致力于优化系统性能，提升应用稳定性和可维护性。
-          </span>
-        </p>
-        <!-- 添加技能标签 -->
-        <div class="mt-6 flex flex-wrap gap-2">
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">
-            <span class="lang-switch" data-zh="高并发" data-en="High Concurrency">高并发</span>
-          </span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">
-            <span class="lang-switch" data-zh="微服务" data-en="Microservices">微服务</span>
-          </span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">DevOps</span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">
-            <span class="lang-switch" data-zh="云计算" data-en="Cloud Computing">云计算</span>
-          </span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">
-            <span class="lang-switch" data-zh="自动化部署" data-en="Automated Deployment">自动化部署</span>
-          </span>
-          <span class="px-3 py-1 text-sm bg-primary/10 text-primary dark:text-dark-primary rounded-full">
-            <span class="lang-switch" data-zh="分布式存储" data-en="Distributed Storage">分布式存储</span>
-          </span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Icons Section -->
-  <section class="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-    <div class="max-w-6xl mx-auto text-center">
-      <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-        <span class="lang-switch" data-zh="技术栈" data-en="Tech Stack">技术栈</span>
-      </h2>
-      <div class="relative">
-        <div class="flex overflow-x-auto hide-scrollbar space-x-4 sm:space-x-6 snap-x snap-mandatory" style="min-height: 200px;">
-          <!-- 前端技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">⚛️</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">React.js</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Frontend</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🎨</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">TailwindCSS</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Styling</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <!-- 后端技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🟢</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Node.js</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Backend</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🛠</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Laravel</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Backend</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <!-- DevOps技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🐳</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Docker</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">DevOps</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">⚙️</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">DevOps</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Infrastructure</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <!-- 数据库技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🐬</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">MySQL</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Database</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">🍃</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">MongoDB</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Database</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <!-- 其他技能 -->
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">📦</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">Git</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Version Control</p>
-            <div class="skill-level"></div>
-          </div>
-
-          <div class="flex-shrink-0 w-[200px] sm:w-[250px] skill-card p-6 rounded-xl">
-            <div class="skill-icon text-4xl sm:text-5xl">📘</div>
-            <h3 class="text-sm font-mono text-primary dark:text-dark-primary font-semibold">TypeScript</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Language</p>
-            <div class="skill-level"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-dark-bg dark:to-gray-800 relative">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-        <span class="lang-switch" data-zh="项目" data-en="Projects">项目</span>
-      </h2>
-      <div class="relative">
-        <div class="flex overflow-x-auto hide-scrollbar space-x-4 sm:space-x-6 snap-x snap-mandatory" style="min-height: 320px;">
-          <!-- 海外导购平台 -->
-          <a href="https://goflashdeals.com" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <div class="project-icon text-2xl">🛍️</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-              <span class="lang-switch" data-zh="海外导购平台" data-en="Global Shopping Platform">海外导购平台</span>
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              <span class="lang-switch" 
-                    data-zh="基于 Nest.js 和 Next.js 构建的现代化电商平台" 
-                    data-en="Modern e-commerce platform built with Nest.js and Next.js">
-                基于 Nest.js 和 Next.js 构建的现代化电商平台
-              </span>
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Nest.js</span>
-              <span class="tech-tag">Next.js</span>
-            </div>
-            <div class="project-link">
-              <span class="lang-switch" data-zh="查看项目" data-en="View Project">查看项目</span>
-              <span>→</span>
-            </div>
-          </a>
-          <!-- 播客聚合平台 -->
-          <a href="https://earsonme.com/" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <div class="project-icon text-2xl">🎙️</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-              <span class="lang-switch" data-zh="播客聚合平台" data-en="Podcast Aggregation Platform">播客聚合平台</span>
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              <span class="lang-switch" data-zh="使用 Livewire 和 Alpine.js 开发的实时播客平台" data-en="Real-time podcast platform built with Livewire and Alpine.js">使用 Livewire 和 Alpine.js 开发的实时播客平台</span>
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Livewire</span>
-              <span class="tech-tag">Alpine.js</span>
-            </div>
-            <div class="project-link">
-              <span class="lang-switch" data-zh="查看项目" data-en="View Project">查看项目</span>
-              <span>→</span>
-            </div>
-          </a>
-          <!-- 社区 -->
-          <a href="https://nextjs-mui-learn.vercel.app" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <div class="project-icon text-2xl">🌐</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-              <span class="lang-switch" data-zh="社区" data-en="Community">社区</span>
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              <span class="lang-switch" data-zh="使用 Nest.js、Next.js 和 Socket.io 构建的实时社区" data-en="Real-time community built with Nest.js, Next.js, and Socket.io">使用 Nest.js、Next.js 和 Socket.io 构建的实时社区</span>
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Nest.js</span>
-              <span class="tech-tag">Next.js</span>
-              <span class="tech-tag">Socket.io</span>
-            </div>
-            <div class="project-link">
-              <span class="lang-switch" data-zh="查看项目" data-en="View Project">查看项目</span>
-              <span>→</span>
-            </div>
-          </a>
-          <!-- 题库及模拟考试平台 -->
-          <a href="https://exercise.aisheishei.me" target="_blank" class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <div class="project-icon text-2xl">📚</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-              <span class="lang-switch" data-zh="题库及模拟考试平台" data-en="Question Bank & Mock Exam Platform">题库及模拟考试平台</span>
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              <span class="lang-switch" data-zh="基于 Livewire 和 Alpine.js 的在线考试系统" data-en="Online examination system based on Livewire and Alpine.js">基于 Livewire 和 Alpine.js 的在线考试系统</span>
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Livewire</span>
-              <span class="tech-tag">Alpine.js</span>
-            </div>
-            <div class="project-link">
-              <span class="lang-switch" data-zh="查看项目" data-en="View Project">查看项目</span>
-              <span>→</span>
-            </div>
-          </a>
-          <!-- 企业内部协作平台 -->
-          <div class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <span class="coming-soon">
-              <span class="lang-switch" data-zh="内部系统" data-en="Internal">内部系统</span>
-            </span>
-            <div class="project-icon text-2xl">�</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-              <span class="lang-switch" data-zh="企业内部在线协作平台" data-en="Enterprise Online Collaboration Platform">企业内部在线协作平台</span>
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              <span class="lang-switch" data-zh="基于群晖和 Discuz 的企业级协作解决方案" data-en="Enterprise collaboration solution based on Synology and Discuz">基于群晖和 Discuz 的企业级协作解决方案</span>
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">
-                <span class="lang-switch" data-zh="群晖" data-en="Synology">群晖</span>
-              </span>
-              <span class="tech-tag">Discuz</span>
-            </div>
-          </div>
-          <!-- 轰趴馆微信小程序 -->
-          <div class="flex-shrink-0 w-[300px] sm:w-[350px] project-card p-6 rounded-xl relative">
-            <span class="coming-soon">
-              <span class="lang-switch" data-zh="小程序" data-en="Mini App">小程序</span>
-            </span>
-            <div class="project-icon text-2xl">🎉</div>
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-              <span class="lang-switch" data-zh="轰趴馆微信小程序" data-en="Party Space WeChat Mini Program">轰趴馆微信小程序</span>
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              <span class="lang-switch" data-zh="基于 Hyperf 和 Vue.js 开发的派对预订小程序" data-en="Party venue booking mini program built with Hyperf and Vue.js">基于 Hyperf 和 Vue.js 开发的派对预订小程序</span>
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tech-tag">Hyperf</span>
-              <span class="tech-tag">Vue.js</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800">
-    <div class="max-w-xl mx-auto text-center">
-      <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-gray-800 dark:text-white">
-        <span class="lang-switch" data-zh="联系我" data-en="Contact Me">联系我</span>
-      </h2>
-      <p class="mb-12 text-sm sm:text-base text-gray-600 dark:text-gray-300">
-        <span class="lang-switch" 
-              data-zh="期待与您合作，一起创造精彩 👋" 
-              data-en="Looking forward to collaborating with you and creating something amazing 👋">
-          期待与您合作，一起创造精彩 👋
-        </span>
-      </p>
-      <a href="https://github.com/tashuo" target="_blank" class="contact-link group">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-        </svg>
-        <span>GitHub</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-8 sm:py-12 text-center">
-    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-      © 2025 Yaming · <span class="lang-switch" data-zh="干就完了" data-en="Just Do It">干就完了</span>
-    </div>
-  </footer>
-
 </body>
 </html>
-
