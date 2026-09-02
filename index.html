@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title class="lang-switch" data-zh="Yaming · 全栈工程师" data-en="Yaming · Full Stack Engineer">Yaming · Full Stack Engineer</title>
-  <meta name="description" content="Yaming — Full Stack & DevOps Engineer. Building high-performance, scalable systems." />
+  <meta name="description" content="Yaming — Full Stack & DevOps Engineer. Building high-performance, scalable, cloud-native systems." />
   <meta name="theme-color" content="#05070d" />
   <meta property="og:title" content="Yaming · Full Stack Engineer" />
-  <meta property="og:description" content="Building high-performance, scalable systems." />
+  <meta property="og:description" content="Building high-performance, scalable, cloud-native systems." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.yaming.dev/" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230b1020'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='56' font-weight='700' fill='%2322d3ee' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
@@ -15,12 +15,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    /* ============ tokens ============ */
+    /* ================= tokens ================= */
     :root{
       --bg:#05070d;
-      --bg-soft:#080b14;
       --surface:rgba(255,255,255,.028);
       --surface-2:rgba(255,255,255,.05);
+      --panel:#0a0e18;
       --line:rgba(255,255,255,.09);
       --line-strong:rgba(255,255,255,.16);
       --fg:#e8edf7;
@@ -29,6 +29,8 @@
       --cyan:#22d3ee;
       --indigo:#818cf8;
       --mint:#34d399;
+      --amber:#fbbf24;
+      --rose:#fb7185;
       --grid:rgba(255,255,255,.045);
       --glow-a:rgba(34,211,238,.16);
       --glow-b:rgba(129,140,248,.16);
@@ -37,9 +39,9 @@
     }
     html.light{
       --bg:#f7f9fc;
-      --bg-soft:#ffffff;
       --surface:rgba(9,15,32,.025);
       --surface-2:rgba(9,15,32,.045);
+      --panel:#0d1424;
       --line:rgba(9,15,32,.09);
       --line-strong:rgba(9,15,32,.16);
       --fg:#0d1424;
@@ -54,25 +56,22 @@
       --shadow:0 24px 50px -24px rgba(13,20,36,.22);
     }
 
-    /* ============ base ============ */
+    /* ================= base ================= */
     *,*::before,*::after{box-sizing:border-box}
-    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:96px}
     body{
       margin:0;
       font-family:'Inter',system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
-      background:var(--bg);
-      color:var(--fg);
-      line-height:1.65;
-      -webkit-font-smoothing:antialiased;
-      overflow-x:hidden;
+      background:var(--bg);color:var(--fg);line-height:1.65;
+      -webkit-font-smoothing:antialiased;overflow-x:hidden;
       transition:background .4s ease,color .4s ease;
     }
     a{color:inherit;text-decoration:none}
-    h1,h2,h3{margin:0;line-height:1.15;letter-spacing:-.02em}
+    h1,h2,h3{margin:0;line-height:1.15;letter-spacing:-.025em}
     p{margin:0}
     ::selection{background:rgba(34,211,238,.28)}
 
-    /* ============ ambient background ============ */
+    /* ================= ambient ================= */
     .bg-layer{position:fixed;inset:0;pointer-events:none;z-index:0}
     .bg-grid{
       background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
@@ -82,37 +81,32 @@
     }
     .bg-glow{
       background:
-        radial-gradient(700px 420px at 18% 8%,var(--glow-a),transparent 62%),
-        radial-gradient(620px 420px at 84% 22%,var(--glow-b),transparent 62%),
-        radial-gradient(800px 500px at 50% 105%,var(--glow-a),transparent 65%);
+        radial-gradient(700px 420px at 14% 4%,var(--glow-a),transparent 62%),
+        radial-gradient(620px 420px at 88% 18%,var(--glow-b),transparent 62%),
+        radial-gradient(800px 500px at 50% 104%,var(--glow-a),transparent 65%);
       filter:blur(6px);
     }
-    .bg-scan{
-      background:repeating-linear-gradient(to bottom,rgba(255,255,255,.018) 0 1px,transparent 1px 4px);
-      opacity:.5;
-    }
+    .bg-scan{background:repeating-linear-gradient(to bottom,rgba(255,255,255,.018) 0 1px,transparent 1px 4px);opacity:.5}
     html.light .bg-scan{display:none}
 
-    /* ============ layout ============ */
+    /* ================= layout ================= */
     .wrap{position:relative;z-index:1}
-    .container{width:100%;max-width:1120px;margin:0 auto;padding:0 24px}
-    section{position:relative;padding:104px 0}
-    @media(max-width:640px){section{padding:72px 0}}
+    .container{width:100%;max-width:1180px;margin:0 auto;padding:0 28px}
+    section{position:relative;padding:100px 0}
+    @media(max-width:640px){section{padding:68px 0}.container{padding:0 20px}}
 
-    /* ============ nav ============ */
+    /* ================= nav ================= */
     header{position:sticky;top:0;z-index:50}
     .nav{
-      display:flex;align-items:center;gap:16px;
-      margin:14px auto;max-width:1120px;
-      padding:10px 14px;border-radius:16px;
-      background:color-mix(in srgb,var(--bg) 72%,transparent);
-      backdrop-filter:blur(18px) saturate(160%);
-      -webkit-backdrop-filter:blur(18px) saturate(160%);
-      border:1px solid var(--line);
-      box-shadow:0 10px 30px -18px rgba(0,0,0,.7);
+      display:flex;align-items:center;gap:16px;max-width:1180px;margin:14px auto;
+      padding:10px 12px 10px 16px;border-radius:16px;
+      background:color-mix(in srgb,var(--bg) 74%,transparent);
+      backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+      border:1px solid var(--line);box-shadow:0 10px 30px -18px rgba(0,0,0,.7);
     }
-    @media(max-width:1170px){.nav{margin:14px 24px}}
-    .brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:-.01em}
+    @media(max-width:1236px){.nav{margin:14px 28px}}
+    @media(max-width:640px){.nav{margin:12px 20px}}
+    .brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:14px}
     .brand .mark{
       width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
       background:linear-gradient(135deg,var(--cyan),var(--indigo));
@@ -120,248 +114,246 @@
       box-shadow:0 0 0 1px var(--line-strong),0 6px 18px -6px var(--glow-a);
     }
     .brand .dim{color:var(--fg-faint);font-weight:500}
-    .nav-links{display:flex;align-items:center;gap:4px;margin-left:auto}
-    .nav-link{
-      font-family:var(--mono);font-size:12.5px;color:var(--fg-dim);
-      padding:7px 11px;border-radius:9px;transition:.2s;white-space:nowrap;
-    }
+    .nav-links{display:flex;align-items:center;gap:2px;margin-left:auto}
+    .nav-link{font-family:var(--mono);font-size:12.5px;color:var(--fg-dim);padding:7px 11px;border-radius:9px;transition:.2s;white-space:nowrap}
     .nav-link:hover{color:var(--fg);background:var(--surface-2)}
-    .nav-sep{width:1px;height:20px;background:var(--line);margin:0 6px}
+    .nav-sep{width:1px;height:20px;background:var(--line);margin:0 8px}
     .icon-btn{
       display:inline-flex;align-items:center;justify-content:center;gap:6px;
       height:34px;min-width:34px;padding:0 10px;border-radius:10px;
-      border:1px solid var(--line);background:var(--surface);
-      color:var(--fg-dim);font-family:var(--mono);font-size:12px;font-weight:500;
-      cursor:pointer;transition:.2s;
+      border:1px solid var(--line);background:var(--surface);color:var(--fg-dim);
+      font-family:var(--mono);font-size:12px;font-weight:500;cursor:pointer;transition:.2s;
     }
     .icon-btn:hover{color:var(--fg);border-color:var(--line-strong);background:var(--surface-2);transform:translateY(-1px)}
     .icon-btn svg{width:15px;height:15px}
-    .btn-blog{
-      color:var(--bg);background:linear-gradient(135deg,var(--cyan),var(--indigo));
-      border-color:transparent;font-weight:700;
-    }
+    .btn-blog{color:#04070f;background:linear-gradient(135deg,var(--cyan),var(--indigo));border-color:transparent;font-weight:700}
     html.light .btn-blog{color:#fff}
-    .btn-blog:hover{color:var(--bg);filter:brightness(1.08)}
+    .btn-blog:hover{color:#04070f;filter:brightness(1.08)}
     html.light .btn-blog:hover{color:#fff}
-    @media(max-width:860px){.nav-links .nav-link{display:none}}
+    @media(max-width:900px){.nav-links .nav-link{display:none}}
 
-    /* ============ hero ============ */
-    .hero{min-height:calc(100vh - 72px);display:flex;flex-direction:column;justify-content:center;padding-top:7vh;padding-bottom:0}
+    /* ================= hero ================= */
+    .hero{padding-top:36px;padding-bottom:0}
+    .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
+    @media(max-width:1000px){.hero-grid{grid-template-columns:1fr;gap:40px}}
     .status{
-      display:inline-flex;align-items:center;gap:9px;
-      padding:6px 14px 6px 10px;border-radius:999px;
+      display:inline-flex;align-items:center;gap:9px;padding:6px 14px 6px 10px;border-radius:999px;
       border:1px solid var(--line);background:var(--surface);
-      font-family:var(--mono);font-size:12px;color:var(--fg-dim);letter-spacing:.02em;
+      font-family:var(--mono);font-size:12px;color:var(--fg-dim);
     }
     .dot{position:relative;width:7px;height:7px;border-radius:50%;background:var(--mint)}
     .dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;background:var(--mint);opacity:.35;animation:ping 2s cubic-bezier(0,0,.2,1) infinite}
     @keyframes ping{0%{transform:scale(.6);opacity:.5}80%,100%{transform:scale(2);opacity:0}}
 
-    .eyebrow{font-family:var(--mono);font-size:13px;color:var(--fg-faint);margin-top:32px}
-    .eyebrow .prompt{color:var(--cyan)}
+    .hello{font-family:var(--mono);font-size:14px;color:var(--cyan);margin-top:30px;letter-spacing:.02em}
     h1.name{
-      margin-top:12px;
-      font-size:clamp(52px,9vw,104px);
-      font-weight:800;letter-spacing:-.045em;line-height:1;
-      background:linear-gradient(120deg,var(--fg) 8%,var(--cyan) 48%,var(--indigo) 88%);
+      margin-top:10px;font-size:clamp(44px,6.4vw,76px);font-weight:800;letter-spacing:-.045em;line-height:1.02;
+    }
+    h1.name .grad{
+      background:linear-gradient(120deg,var(--cyan) 5%,var(--indigo) 75%);
       -webkit-background-clip:text;background-clip:text;color:transparent;
     }
-    .role{
-      margin-top:14px;font-family:var(--mono);
-      font-size:clamp(16px,3.2vw,26px);font-weight:500;color:var(--fg);
-      min-height:1.4em;
-    }
+    .role{margin-top:16px;font-family:var(--mono);font-size:clamp(15px,2.2vw,21px);font-weight:500;color:var(--fg);min-height:1.5em}
     .role .caret{display:inline-block;width:.6ch;background:var(--cyan);color:transparent;animation:blink 1s steps(1) infinite;margin-left:2px}
     @keyframes blink{50%{opacity:0}}
-    .lede{margin-top:22px;max-width:620px;font-size:clamp(15px,1.6vw,17.5px);color:var(--fg-dim)}
-
-    .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
-    .btn{
-      display:inline-flex;align-items:center;gap:9px;
-      padding:13px 22px;border-radius:12px;
-      font-size:14.5px;font-weight:600;cursor:pointer;transition:.22s;
-      border:1px solid var(--line-strong);
-    }
-    .btn-primary{
-      background:linear-gradient(135deg,var(--cyan),var(--indigo));
-      color:#04070f;border-color:transparent;
-      box-shadow:0 14px 34px -14px var(--glow-b);
-    }
+    .lede{margin-top:20px;max-width:560px;font-size:16.5px;color:var(--fg-dim)}
+    .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+    .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:12px;font-size:14.5px;font-weight:600;cursor:pointer;transition:.22s;border:1px solid var(--line-strong)}
+    .btn-primary{background:linear-gradient(135deg,var(--cyan),var(--indigo));color:#04070f;border-color:transparent;box-shadow:0 14px 34px -14px var(--glow-b)}
     html.light .btn-primary{color:#fff}
     .btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 44px -14px var(--glow-b);filter:brightness(1.06)}
     .btn-ghost{background:var(--surface);color:var(--fg)}
     .btn-ghost:hover{transform:translateY(-2px);background:var(--surface-2);border-color:var(--cyan)}
     .btn .arr{transition:transform .22s}
     .btn:hover .arr{transform:translateX(3px)}
-
-    /* marquee */
-    .marquee{margin-top:auto;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0}
-    .marquee::before,.marquee::after{content:'';position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none}
-    .marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
-    .marquee::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
-    .marquee-track{display:flex;width:max-content;animation:slide 32s linear infinite}
-    .marquee:hover .marquee-track{animation-play-state:paused}
-    @keyframes slide{to{transform:translateX(-50%)}}
-    .marquee-item{
-      display:inline-flex;align-items:center;gap:8px;padding:0 26px;
-      font-family:var(--mono);font-size:12.5px;color:var(--fg-faint);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+    .socials{display:flex;gap:10px;margin-top:30px}
+    .soc{
+      width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+      border:1px solid var(--line);background:var(--surface);color:var(--fg-faint);transition:.22s;
     }
-    .marquee-item i{width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:.7;font-style:normal}
+    .soc:hover{color:var(--cyan);border-color:var(--cyan);transform:translateY(-2px)}
+    .soc svg{width:17px;height:17px}
 
-    /* ============ section heading ============ */
+    /* ---------- terminal ---------- */
+    .term-stack{display:flex;flex-direction:column;gap:16px}
+    .term{
+      border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;
+      background:var(--panel);box-shadow:var(--shadow);
+    }
+    .term-bar{
+      display:flex;align-items:center;gap:8px;padding:10px 14px;
+      border-bottom:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03);
+      font-family:var(--mono);font-size:11.5px;color:#66708a;
+    }
+    .tl{display:flex;gap:6px;margin-right:8px}
+    .tl span{width:11px;height:11px;border-radius:50%}
+    .tl span:nth-child(1){background:#ff5f57}.tl span:nth-child(2){background:#febc2e}.tl span:nth-child(3){background:#28c840}
+    .term-body{padding:18px 18px 20px;font-family:var(--mono);font-size:12.5px;line-height:1.75;color:#c7d0e2;overflow-x:auto}
+    .term-body::-webkit-scrollbar{height:6px}
+    .term-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+    .fetch{display:flex;gap:20px;align-items:flex-start}
+    .fetch pre{margin:0;color:#22d3ee;font-size:11px;line-height:1.2;white-space:pre}
+    .fetch-info{min-width:0;flex:1}
+    .fl{white-space:nowrap;opacity:0}
+    .fl.show{opacity:1;animation:lineIn .34s ease both}
+    @keyframes lineIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+    .fk{color:#818cf8;display:inline-block;min-width:96px}
+    .fv{color:#c7d0e2}
+    .fu{color:#34d399}
+    .rule{color:#3f4a63}
+    .cmd{color:#e8edf7}
+    .cmd .p{color:#34d399}
+    .cmd .c{color:#22d3ee}
+
+    /* code block */
+    .code-body{padding:16px 18px;font-family:var(--mono);font-size:12.5px;line-height:1.8;overflow-x:auto}
+    .code-body pre{margin:0;white-space:pre;color:#c7d0e2}
+    .kw{color:#c084fc}.st{color:#7dd3a8}.fn{color:#60a5fa}.pr{color:#22d3ee}.nu{color:#fbbf24}.cm{color:#5b667f;font-style:italic}.op{color:#94a3b8}
+
+    /* ================= section heading ================= */
     .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:44px;flex-wrap:wrap}
     .sec-num{font-family:var(--mono);font-size:12.5px;color:var(--cyan);letter-spacing:.14em}
-    .sec-title{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.03em}
+    .sec-title{font-size:clamp(26px,4vw,38px);font-weight:700}
     .sec-rule{flex:1;height:1px;min-width:40px;background:linear-gradient(90deg,var(--line-strong),transparent)}
     .sec-sub{font-family:var(--mono);font-size:12.5px;color:var(--fg-faint)}
 
-    /* ============ about ============ */
+    /* ================= about ================= */
     .about-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:24px;align-items:start}
     @media(max-width:900px){.about-grid{grid-template-columns:1fr}}
-    .panel{
-      border:1px solid var(--line);border-radius:16px;background:var(--surface);
-      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-      overflow:hidden;
-    }
-    .panel-bar{
-      display:flex;align-items:center;gap:8px;padding:11px 16px;
-      border-bottom:1px solid var(--line);background:var(--surface);
-      font-family:var(--mono);font-size:12px;color:var(--fg-faint);
-    }
-    .tl{display:flex;gap:6px;margin-right:6px}
-    .tl span{width:10px;height:10px;border-radius:50%;background:var(--line-strong)}
-    .tl span:nth-child(1){background:#ff5f57}.tl span:nth-child(2){background:#febc2e}.tl span:nth-child(3){background:#28c840}
+    .panel{border:1px solid var(--line);border-radius:16px;background:var(--surface);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);overflow:hidden}
+    .panel-bar{display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--surface);font-family:var(--mono);font-size:12px;color:var(--fg-faint)}
+    .panel-bar .tl span{background:var(--line-strong);width:10px;height:10px}
+    .panel-bar .tl span:nth-child(1){background:#ff5f57}.panel-bar .tl span:nth-child(2){background:#febc2e}.panel-bar .tl span:nth-child(3){background:#28c840}
     .panel-body{padding:26px}
     .panel-body p+p{margin-top:16px}
     .panel-body p{color:var(--fg-dim);font-size:15.5px}
-    .code-line{font-family:var(--mono);font-size:12.5px;color:var(--fg-faint);margin-bottom:18px}
-    .code-line .c{color:var(--mint)}
+    .md-h{font-family:var(--mono);font-size:12.5px;color:var(--fg-faint);margin-bottom:18px}
+    .md-h .c{color:var(--mint)}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;padding-top:22px;border-top:1px dashed var(--line)}
-    .chip{
-      font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;
-      padding:5px 11px;border-radius:8px;border:1px solid var(--line);
-      background:var(--surface-2);color:var(--fg-dim);transition:.2s;
-    }
+    .chip{font-family:var(--mono);font-size:11.5px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);color:var(--fg-dim);transition:.2s}
     .chip:hover{color:var(--cyan);border-color:var(--cyan)}
     .stats{display:grid;gap:14px}
     .stat{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--surface);transition:.25s}
     .stat:hover{border-color:var(--line-strong);transform:translateY(-2px)}
-    .stat b{
-      display:block;font-family:var(--mono);font-size:32px;font-weight:700;letter-spacing:-.03em;
-      background:linear-gradient(120deg,var(--cyan),var(--indigo));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-    }
+    .stat b{display:block;font-family:var(--mono);font-size:32px;font-weight:700;letter-spacing:-.03em;background:linear-gradient(120deg,var(--cyan),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent}
     .stat span{display:block;margin-top:4px;font-size:13px;color:var(--fg-faint)}
 
-    /* ============ stack ============ */
+    /* ================= stack ================= */
+    .stack-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+    .stack-tab{
+      display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;
+      letter-spacing:.06em;text-transform:uppercase;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.22s;
+      border:1px solid var(--line);background:var(--surface);color:var(--fg-faint);
+    }
+    .stack-tab:hover{color:var(--fg);border-color:var(--line-strong)}
+    .stack-tab .ct{font-size:10.5px;opacity:.65}
+    .stack-tab.on{color:#04070f;border-color:transparent;font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--indigo));box-shadow:0 10px 26px -12px var(--glow-b)}
+    html.light .stack-tab.on{color:#fff}
     .stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-    .tech{
-      position:relative;display:flex;align-items:center;gap:12px;
-      padding:16px;border-radius:14px;border:1px solid var(--line);
-      background:var(--surface);overflow:hidden;transition:.25s;
-    }
-    .tech::before{
-      content:'';position:absolute;inset:0;opacity:0;transition:.3s;
-      background:radial-gradient(120px 80px at var(--mx,50%) var(--my,50%),var(--glow-a),transparent 70%);
-    }
+    .tech{position:relative;display:flex;align-items:center;gap:12px;padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--surface);overflow:hidden;transition:.25s}
+    .tech::before{content:'';position:absolute;inset:0;opacity:0;transition:.3s;background:radial-gradient(120px 80px at var(--mx,50%) var(--my,50%),var(--glow-a),transparent 70%)}
     .tech:hover{transform:translateY(-3px);border-color:var(--line-strong);box-shadow:var(--shadow)}
     .tech:hover::before{opacity:1}
     .tech img{width:26px;height:26px;position:relative;z-index:1;flex-shrink:0}
+    .tech .spark{width:26px;height:26px;position:relative;z-index:1;flex-shrink:0;color:var(--cyan)}
     .tech .meta{position:relative;z-index:1;min-width:0}
     .tech .n{display:block;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .tech .k{display:block;font-family:var(--mono);font-size:10.5px;color:var(--fg-faint);letter-spacing:.08em;text-transform:uppercase}
     .mono-icon img{filter:invert(1)}
     html.light .mono-icon img{filter:none}
-    .tech .spark{width:26px;height:26px;position:relative;z-index:1;flex-shrink:0;color:var(--cyan)}
-
-    /* stack filter tabs */
-    .stack-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-    .stack-tab{
-      display:inline-flex;align-items:center;gap:7px;
-      font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
-      padding:7px 14px;border-radius:999px;cursor:pointer;transition:.22s;
-      border:1px solid var(--line);background:var(--surface);color:var(--fg-faint);
-    }
-    .stack-tab:hover{color:var(--fg);border-color:var(--line-strong)}
-    .stack-tab .ct{font-size:10.5px;opacity:.65}
-    .stack-tab.on{
-      color:#04070f;border-color:transparent;font-weight:700;
-      background:linear-gradient(135deg,var(--cyan),var(--indigo));
-      box-shadow:0 10px 26px -12px var(--glow-b);
-    }
-    html.light .stack-tab.on{color:#fff}
     .tech.off{display:none}
     .tech.pop{animation:pop .38s cubic-bezier(.2,.7,.3,1) both}
     @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
-    @media(prefers-reduced-motion:reduce){.tech.pop{animation:none}}
 
-    /* ============ projects ============ */
-    .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+    /* ================= projects ================= */
+    .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:20px}
     .proj{
-      position:relative;display:flex;flex-direction:column;
-      padding:24px;border-radius:16px;border:1px solid var(--line);
-      background:var(--surface);overflow:hidden;transition:.28s;min-height:236px;
+      position:relative;display:flex;flex-direction:column;border-radius:18px;border:1px solid var(--line);
+      background:var(--surface);overflow:hidden;transition:.28s;
     }
     .proj::after{
-      content:'';position:absolute;inset:0;border-radius:16px;padding:1px;opacity:0;transition:.3s;
+      content:'';position:absolute;inset:0;border-radius:18px;padding:1px;opacity:0;transition:.3s;
       background:linear-gradient(135deg,var(--cyan),transparent 45%,var(--indigo));
       -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
       -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
     }
-    .proj:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .proj:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
     .proj:hover::after{opacity:1}
-    .proj-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-    .proj-idx{font-family:var(--mono);font-size:12px;color:var(--fg-faint);letter-spacing:.1em}
-    .badge{
-      font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
-      padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--fg-faint);background:var(--surface-2);
+    .cover{
+      position:relative;aspect-ratio:16/9;display:grid;place-items:center;overflow:hidden;
+      border-bottom:1px solid var(--line);
+      background:
+        linear-gradient(140deg,rgba(34,211,238,.14),rgba(129,140,248,.14)),
+        var(--panel);
     }
+    html.light .cover{background:linear-gradient(140deg,rgba(8,145,178,.1),rgba(79,70,229,.1)),#eef2f9}
+    .cover::before{
+      content:'';position:absolute;inset:0;
+      background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+      background-size:26px 26px;
+    }
+    html.light .cover::before{background-image:linear-gradient(rgba(9,15,32,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(9,15,32,.05) 1px,transparent 1px)}
+    .cover svg{position:relative;width:64px;height:64px;color:var(--cyan);opacity:.9;transition:transform .4s cubic-bezier(.2,.7,.3,1)}
+    .proj:hover .cover svg{transform:scale(1.1) translateY(-2px)}
+    .cover .host{
+      position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:11px;color:var(--fg-faint);
+      background:color-mix(in srgb,var(--bg) 70%,transparent);padding:3px 9px;border-radius:7px;border:1px solid var(--line);
+    }
+    .cover .idx{position:absolute;right:14px;top:12px;font-family:var(--mono);font-size:11px;color:var(--fg-faint);letter-spacing:.1em}
+    .proj-body{display:flex;flex-direction:column;flex:1;padding:22px}
+    .proj-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .badge{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--fg-faint);background:var(--surface-2)}
     .badge.live{color:var(--mint);border-color:color-mix(in srgb,var(--mint) 40%,transparent)}
-    .proj h3{margin-top:16px;font-size:18px;font-weight:650;letter-spacing:-.02em}
+    .proj h3{font-size:18px;font-weight:650}
     .proj p{margin-top:9px;font-size:14px;color:var(--fg-dim)}
     .proj .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:20px}
-    .tag{
-      font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:7px;
-      border:1px solid var(--line);color:var(--fg-dim);background:var(--surface-2);
-    }
-    .proj-go{
-      display:inline-flex;align-items:center;gap:6px;margin-top:16px;
-      font-family:var(--mono);font-size:12px;color:var(--cyan);transition:.22s;
-    }
+    .tag{font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:7px;border:1px solid var(--line);color:var(--fg-dim);background:var(--surface-2)}
+    .proj-go{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--cyan);transition:.22s}
     .proj:hover .proj-go{gap:10px}
 
-    /* ============ contact ============ */
-    .contact-card{
-      border:1px solid var(--line);border-radius:22px;padding:56px 32px;text-align:center;
-      background:
-        radial-gradient(600px 260px at 50% 0%,var(--glow-b),transparent 70%),
-        var(--surface);
+    /* ================= cta band ================= */
+    .band{
+      border:1px solid var(--line);border-radius:20px;padding:44px 36px;
+      display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
+      background:radial-gradient(700px 240px at 20% 0%,var(--glow-b),transparent 70%),var(--surface);
       backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     }
-    .contact-card h2{font-size:clamp(28px,5vw,42px);font-weight:750;letter-spacing:-.035em}
+    .band h3{font-size:clamp(22px,3.4vw,30px);font-weight:750}
+    .band p{margin-top:10px;color:var(--fg-dim);font-size:15px;max-width:520px}
+
+    /* ================= contact ================= */
+    .contact-card{
+      border:1px solid var(--line);border-radius:22px;padding:56px 32px;text-align:center;
+      background:radial-gradient(600px 260px at 50% 0%,var(--glow-b),transparent 70%),var(--surface);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    .contact-card h2{font-size:clamp(28px,5vw,42px);font-weight:750}
     .contact-card p{margin-top:14px;color:var(--fg-dim);font-size:16px}
     .contact-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:32px}
-    .clink{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:13px 22px;border-radius:12px;border:1px solid var(--line-strong);
-      background:var(--surface-2);font-size:14.5px;font-weight:600;transition:.24s;
-    }
+    .clink{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:12px;border:1px solid var(--line-strong);background:var(--surface-2);font-size:14.5px;font-weight:600;transition:.24s}
     .clink:hover{transform:translateY(-2px);border-color:var(--cyan);color:var(--cyan)}
     .clink svg{width:18px;height:18px}
 
-    /* ============ footer ============ */
-    footer{border-top:1px solid var(--line);padding:28px 0 40px}
-    .foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:12px;color:var(--fg-faint)}
-    .foot .up{transition:.2s}
-    .foot .up:hover{color:var(--cyan)}
+    /* ================= footer ================= */
+    footer{border-top:1px solid var(--line);padding:48px 0 40px}
+    .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
+    @media(max-width:760px){.foot-grid{grid-template-columns:1fr;gap:28px}}
+    .foot-brand p{margin-top:14px;color:var(--fg-faint);font-size:13.5px;max-width:320px}
+    .foot-col h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint);margin:0 0 14px;font-weight:600}
+    .foot-col a{display:block;font-size:13.5px;color:var(--fg-dim);padding:4px 0;transition:.2s}
+    .foot-col a:hover{color:var(--cyan)}
+    .foot-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:40px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--fg-faint)}
+    .foot-bottom .up{transition:.2s}
+    .foot-bottom .up:hover{color:var(--cyan)}
 
-    /* ============ reveal ============ */
+    /* ================= reveal ================= */
     .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
     .reveal.in{opacity:1;transform:none}
     @media(prefers-reduced-motion:reduce){
       .reveal{opacity:1;transform:none;transition:none}
-      .marquee-track{animation:none}
       .dot::after{animation:none}
+      .fl{opacity:1}
+      .tech.pop{animation:none}
     }
   </style>
 </head>
@@ -373,20 +365,15 @@
   <div class="wrap">
     <!-- ============ NAV ============ -->
     <header>
-      <nav class="nav container-none">
-        <a href="#top" class="brand">
-          <span class="mark">Y</span>
-          <span>yaming<span class="dim">.dev</span></span>
-        </a>
+      <nav class="nav">
+        <a href="#top" class="brand"><span class="mark">Y</span><span>yaming<span class="dim">.dev</span></span></a>
         <div class="nav-links">
           <a class="nav-link" href="#about"><span class="lang-switch" data-zh="关于" data-en="about">about</span></a>
           <a class="nav-link" href="#stack"><span class="lang-switch" data-zh="技术栈" data-en="stack">stack</span></a>
           <a class="nav-link" href="#projects"><span class="lang-switch" data-zh="项目" data-en="projects">projects</span></a>
           <a class="nav-link" href="#contact"><span class="lang-switch" data-zh="联系" data-en="contact">contact</span></a>
           <span class="nav-sep"></span>
-          <button class="icon-btn" onclick="toggleLanguage()" aria-label="Switch language">
-            <span id="lang-text">EN</span>
-          </button>
+          <button class="icon-btn" onclick="toggleLanguage()" aria-label="Switch language"><span id="lang-text">EN</span></button>
           <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle theme">
             <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -402,37 +389,94 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="top">
       <div class="container">
-        <span class="status">
-          <span class="dot"></span>
-          <span class="lang-switch" data-zh="当前开放合作与工作机会" data-en="Available for new opportunities">Available for new opportunities</span>
-        </span>
+        <div class="hero-grid">
+          <!-- left -->
+          <div>
+            <span class="status">
+              <span class="dot"></span>
+              <span class="lang-switch" data-zh="当前开放合作与工作机会" data-en="Available for new opportunities">Available for new opportunities</span>
+            </span>
 
-        <div class="eyebrow"><span class="prompt">~</span> $ whoami</div>
-        <h1 class="name">Yaming</h1>
-        <div class="role"><span id="typed"></span><span class="caret">_</span></div>
+            <div class="hello">&gt; Hello World!</div>
+            <h1 class="name">
+              <span class="lang-switch" data-zh="我是" data-en="I'm">I'm</span>
+              <span class="grad">Yaming</span>
+            </h1>
+            <div class="role"><span id="typed"></span><span class="caret">_</span></div>
 
-        <p class="lede">
-          <span class="lang-switch"
-            data-zh="十年工程经验，专注高并发系统架构、性能优化与云原生交付 —— 从数据库到 CI/CD，把复杂系统做得稳定、可扩展、跑得快。"
-            data-en="Ten years of engineering. I design high-concurrency architectures, tune performance down to the query, and ship cloud-native systems that stay fast, stable and easy to scale.">
-            Ten years of engineering.
-          </span>
-        </p>
+            <p class="lede">
+              <span class="lang-switch"
+                data-zh="十年工程经验，专注高并发系统架构、性能优化与云原生交付 —— 从数据库到 CI/CD，把复杂系统做得稳定、可扩展、跑得快。"
+                data-en="Ten years of engineering. I design high-concurrency architectures, tune performance down to the query, and ship cloud-native systems that stay fast, stable and easy to scale.">
+              </span>
+            </p>
 
-        <div class="cta">
-          <a class="btn btn-primary" href="#contact">
-            <span class="lang-switch" data-zh="联系我" data-en="Get in touch">Get in touch</span>
-            <span class="arr">→</span>
-          </a>
-          <a class="btn btn-ghost" href="#projects">
-            <span class="lang-switch" data-zh="查看项目" data-en="View projects">View projects</span>
-            <span class="arr">→</span>
-          </a>
+            <div class="cta">
+              <a class="btn btn-primary" href="#projects">
+                <span class="lang-switch" data-zh="查看项目" data-en="View projects">View projects</span><span class="arr">→</span>
+              </a>
+              <a class="btn btn-ghost" href="#contact">
+                <span class="lang-switch" data-zh="联系我" data-en="Contact me">Contact me</span><span class="arr">→</span>
+              </a>
+            </div>
+
+            <div class="socials">
+              <a class="soc" href="https://github.com/tashuo" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+              <a class="soc" href="https://blog.yaming.dev" target="_blank" rel="noopener" aria-label="Blog">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4z"/><path d="M8 8h6M8 12h6M8 16h4"/></svg>
+              </a>
+              <a class="soc" href="https://timespeaker.com/" target="_blank" rel="noopener" aria-label="TimeSpeaker">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.4L19.5 10l-5.6 1.6L12 17l-1.9-5.4L4.5 10l5.6-1.6L12 3z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- right: terminal -->
+          <div class="term-stack">
+            <div class="term">
+              <div class="term-bar">
+                <span class="tl"><span></span><span></span><span></span></span>
+                <span>yaming@dev — zsh — 82×24</span>
+              </div>
+              <div class="term-body">
+                <div class="cmd fl" data-i="0"><span class="p">➜</span> <span class="c">~</span> neofetch</div>
+                <div class="fetch" style="margin-top:10px">
+                  <pre id="ascii"> ██╗   ██╗
+ ╚██╗ ██╔╝
+  ╚████╔╝
+   ╚██╔╝
+    ██║
+    ╚═╝   </pre>
+                  <div class="fetch-info" id="fetch-info"></div>
+                </div>
+                <div class="cmd fl" data-i="99" style="margin-top:12px"><span class="p">➜</span> <span class="c">~</span> <span id="tail"></span></div>
+              </div>
+            </div>
+
+            <div class="term">
+              <div class="term-bar">
+                <span class="tl"><span></span><span></span><span></span></span>
+                <span>profile.ts</span>
+              </div>
+              <div class="code-body">
+<pre><span class="cm">// who you're hiring</span>
+<span class="kw">export const</span> <span class="pr">yaming</span> <span class="op">=</span> {
+  <span class="pr">role</span>: <span class="st">'Full Stack &amp; DevOps Engineer'</span>,
+  <span class="pr">years</span>: <span class="nu">10</span>,
+  <span class="pr">focus</span>: [<span class="st">'high-concurrency'</span>, <span class="st">'performance'</span>, <span class="st">'cloud-native'</span>],
+  <span class="pr">edge</span>: <span class="st">'Cloudflare'</span>,
+  <span class="pr">shipping</span>: <span class="kw">true</span>,
+} <span class="kw">as const</span>;
+
+<span class="kw">export function</span> <span class="fn">build</span>(<span class="pr">idea</span>: <span class="fn">Idea</span>) {
+  <span class="kw">return</span> <span class="fn">ship</span>(<span class="fn">design</span>(<span class="pr">idea</span>)); <span class="cm">// 干就完了</span>
+}</pre>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="marquee">
-        <div class="marquee-track" id="marquee"></div>
       </div>
     </section>
 
@@ -441,7 +485,7 @@
       <div class="container">
         <div class="sec-head reveal">
           <span class="sec-num">01</span>
-          <h2 class="sec-title"><span class="lang-switch" data-zh="关于我" data-en="About">About</span></h2>
+          <h2 class="sec-title"><span class="lang-switch" data-zh="关于我" data-en="About Me">About Me</span></h2>
           <span class="sec-rule"></span>
           <span class="sec-sub">cat about.md</span>
         </div>
@@ -453,7 +497,7 @@
               <span>~/yaming/about.md</span>
             </div>
             <div class="panel-body">
-              <div class="code-line"><span class="c">#</span> Senior Full Stack &amp; DevOps Engineer</div>
+              <div class="md-h"><span class="c">#</span> Senior Full Stack &amp; DevOps Engineer</div>
               <p>
                 <span class="lang-switch"
                   data-zh="资深全栈工程师，十年开发经验，擅长构建高并发、高性能、可扩展的应用系统。在数据库优化、微服务架构与 DevOps 落地上有大量实战积累，同时精通前端工程化与响应式开发，能够端到端交付流畅的产品体验。"
@@ -462,8 +506,8 @@
               </p>
               <p>
                 <span class="lang-switch"
-                  data-zh="熟悉云计算、自动化部署与分布式存储，长期专注于系统性能优化，持续提升应用的稳定性、可观测性与可维护性。"
-                  data-en="Comfortable across cloud computing, automated deployment and distributed storage — consistently focused on system performance, and on making applications more stable, observable and maintainable.">
+                  data-zh="熟悉云计算、自动化部署与分布式存储，长期专注于系统性能优化，持续提升应用的稳定性、可观测性与可维护性。近两年把重心放在 AI 产品上，用大模型接口做真正能上线赚钱的东西。"
+                  data-en="Comfortable across cloud computing, automated deployment and distributed storage, with a long-running focus on performance, observability and maintainability. Lately I build AI products — wiring LLM APIs into things that actually ship.">
                 </span>
               </p>
               <div class="chips">
@@ -474,6 +518,7 @@
                 <span class="chip lang-switch" data-zh="自动化部署" data-en="CI / CD">CI / CD</span>
                 <span class="chip lang-switch" data-zh="分布式存储" data-en="Distributed Storage">Distributed Storage</span>
                 <span class="chip lang-switch" data-zh="性能优化" data-en="Performance Tuning">Performance Tuning</span>
+                <span class="chip lang-switch" data-zh="AI 应用" data-en="AI Products">AI Products</span>
               </div>
             </div>
           </div>
@@ -514,8 +559,28 @@
       </div>
     </section>
 
+    <!-- ============ CTA BAND ============ -->
+    <section style="padding-top:0">
+      <div class="container">
+        <div class="band reveal">
+          <div>
+            <h3><span class="lang-switch" data-zh="有想法要落地？" data-en="Ready to collaborate?">Ready to collaborate?</span></h3>
+            <p>
+              <span class="lang-switch"
+                data-zh="从架构设计到上线运维，我可以接手完整链路。也欢迎只聊聊技术选型。"
+                data-en="From architecture to production ops, I can take the whole chain. Happy to just talk tech choices too.">
+              </span>
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#contact">
+            <span class="lang-switch" data-zh="聊聊看" data-en="Start a conversation">Start a conversation</span><span class="arr">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ CONTACT ============ -->
-    <section id="contact">
+    <section id="contact" style="padding-top:20px">
       <div class="container">
         <div class="contact-card reveal">
           <h2><span class="lang-switch" data-zh="一起做点有意思的东西" data-en="Let's build something solid">Let's build something solid</span></h2>
@@ -539,10 +604,38 @@
       </div>
     </section>
 
+    <!-- ============ FOOTER ============ -->
     <footer>
-      <div class="container foot">
-        <span>© 2026 Yaming · <span class="lang-switch" data-zh="干就完了" data-en="Just ship it">Just ship it</span></span>
-        <a class="up" href="#top">back to top ↑</a>
+      <div class="container">
+        <div class="foot-grid">
+          <div class="foot-brand">
+            <a href="#top" class="brand"><span class="mark">Y</span><span>yaming<span class="dim">.dev</span></span></a>
+            <p>
+              <span class="lang-switch"
+                data-zh="全栈 & DevOps 工程师。做能上线、扛得住、跑得快的系统。"
+                data-en="Full Stack & DevOps Engineer. Systems that ship, hold up under load, and stay fast.">
+              </span>
+            </p>
+          </div>
+          <div class="foot-col">
+            <h4><span class="lang-switch" data-zh="导航" data-en="Navigate">Navigate</span></h4>
+            <a href="#about"><span class="lang-switch" data-zh="关于我" data-en="About">About</span></a>
+            <a href="#stack"><span class="lang-switch" data-zh="技术栈" data-en="Tech Stack">Tech Stack</span></a>
+            <a href="#projects"><span class="lang-switch" data-zh="项目" data-en="Projects">Projects</span></a>
+            <a href="#contact"><span class="lang-switch" data-zh="联系我" data-en="Contact">Contact</span></a>
+          </div>
+          <div class="foot-col">
+            <h4><span class="lang-switch" data-zh="站外" data-en="Elsewhere">Elsewhere</span></h4>
+            <a href="https://github.com/tashuo" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://blog.yaming.dev" target="_blank" rel="noopener"><span class="lang-switch" data-zh="博客" data-en="Blog">Blog</span></a>
+            <a href="https://timespeaker.com/" target="_blank" rel="noopener">TimeSpeaker</a>
+            <a href="https://goflashdeals.com" target="_blank" rel="noopener">GoFlashDeals</a>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <span>© 2026 Yaming · <span class="lang-switch" data-zh="干就完了" data-en="Just ship it">Just ship it</span></span>
+          <a class="up" href="#top">back to top ↑</a>
+        </div>
       </div>
     </footer>
   </div>
@@ -552,92 +645,91 @@
     'use strict';
     var DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
 
-    /* ---------- data ---------- */
+    /* ---------------- data ---------------- */
     var GROUPS = [
       { id:'all',      zh:'全部',   en:'All' },
-      { id:'ai',       zh:'AI',       en:'AI' },
+      { id:'ai',       zh:'AI',     en:'AI' },
       { id:'backend',  zh:'后端',   en:'Backend' },
       { id:'frontend', zh:'前端',   en:'Frontend' },
       { id:'data',     zh:'数据',   en:'Data' },
       { id:'infra',    zh:'工程化', en:'Infra' }
     ];
 
-    // name, role(zh), role(en), group, devicon path (null = AI spark icon), invert-in-dark
+    // name, role(zh), role(en), group, devicon path (null = spark icon), invert-in-dark
     var STACK = [
-      ['OpenAI GPT',  '大模型接口', 'LLM API',          'ai',       null],
-      ['Claude',      '大模型接口', 'LLM API',          'ai',       null],
-      ['Gemini',      '大模型接口', 'LLM API',          'ai',       null],
-      ['DeepSeek',    '大模型接口', 'LLM API',          'ai',       null],
+      ['OpenAI GPT',  '大模型接口', 'LLM API',        'ai',       null],
+      ['Claude',      '大模型接口', 'LLM API',        'ai',       null],
+      ['Gemini',      '大模型接口', 'LLM API',        'ai',       null],
+      ['DeepSeek',    '大模型接口', 'LLM API',        'ai',       null],
 
-      ['Go',          '后端语言',   'Language',         'backend',  'go/go-original.svg'],
-      ['Node.js',     '运行时',     'Runtime',          'backend',  'nodejs/nodejs-original.svg'],
-      ['NestJS',      '后端框架',   'Node Framework',   'backend',  'nestjs/nestjs-original.svg'],
-      ['Laravel',     '后端框架',   'PHP Framework',    'backend',  'laravel/laravel-original.svg'],
-      ['PHP',         '后端语言',   'Language',         'backend',  'php/php-original.svg'],
+      ['Go',          '后端语言',   'Language',       'backend',  'go/go-original.svg'],
+      ['Node.js',     '运行时',     'Runtime',        'backend',  'nodejs/nodejs-original.svg'],
+      ['NestJS',      '后端框架',   'Node Framework', 'backend',  'nestjs/nestjs-original.svg'],
+      ['Laravel',     '后端框架',   'PHP Framework',  'backend',  'laravel/laravel-original.svg'],
+      ['PHP',         '后端语言',   'Language',       'backend',  'php/php-original.svg'],
 
-      ['React',       'UI 库',        'UI Library',       'frontend', 'react/react-original.svg'],
-      ['Next.js',     '全栈框架',   'React Framework',  'frontend', 'nextjs/nextjs-original.svg', true],
-      ['TypeScript',  '前端语言',   'Language',         'frontend', 'typescript/typescript-original.svg'],
-      ['Vue.js',      'UI 框架',      'UI Framework',     'frontend', 'vuejs/vuejs-original.svg'],
-      ['TailwindCSS', '样式方案',   'CSS Framework',    'frontend', 'tailwindcss/tailwindcss-original.svg'],
+      ['React',       'UI 库',      'UI Library',     'frontend', 'react/react-original.svg'],
+      ['Next.js',     '全栈框架',   'React Framework','frontend', 'nextjs/nextjs-original.svg', true],
+      ['TypeScript',  '前端语言',   'Language',       'frontend', 'typescript/typescript-original.svg'],
+      ['Vue.js',      'UI 框架',    'UI Framework',   'frontend', 'vuejs/vuejs-original.svg'],
+      ['TailwindCSS', '样式方案',   'CSS Framework',  'frontend', 'tailwindcss/tailwindcss-original.svg'],
 
-      ['MySQL',       '关系型数据库', 'Relational DB', 'data',   'mysql/mysql-original.svg'],
+      ['MySQL',       '关系型数据库','Relational DB', 'data',     'mysql/mysql-original.svg'],
       ['MongoDB',     '文档数据库', 'Document DB',    'data',     'mongodb/mongodb-original.svg'],
-      ['Redis',       '缓存 / 队列', 'Cache / Queue',    'data',     'redis/redis-original.svg'],
+      ['Redis',       '缓存 / 队列','Cache / Queue',  'data',     'redis/redis-original.svg'],
 
-      ['Cloudflare',  '边缘平台',   'Edge Platform',    'infra',    'cloudflare/cloudflare-original.svg'],
-      ['Docker',      '容器化',     'Containers',       'infra',    'docker/docker-original.svg'],
+      ['Cloudflare',  '边缘平台',   'Edge Platform',  'infra',    'cloudflare/cloudflare-original.svg'],
+      ['Docker',      '容器化',     'Containers',     'infra',    'docker/docker-original.svg'],
       ['Linux',       '服务器系统', 'Server OS',      'infra',    'linux/linux-original.svg']
     ];
 
+    var ICONS = {
+      spark:'<path d="M12 3l1.9 5.4L19.5 10l-5.6 1.6L12 17l-1.9-5.4L4.5 10l5.6-1.6L12 3z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/>',
+      bag:'<path d="M6 7h12l1.2 12.2a2 2 0 0 1-2 2.2H6.8a2 2 0 0 1-2-2.2L6 7z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/>',
+      mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8.5 21h7"/>',
+      chat:'<path d="M20 15a3 3 0 0 1-3 3H8l-4 3V6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v9z"/><path d="M8 9h8M8 13h5"/>',
+      book:'<path d="M4 4h10a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4z"/><path d="M17 7h3v13h-3M8 8h5M8 12h5"/>',
+      folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>',
+      phone:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5.5h4M12 18.5h.01"/>'
+    };
+
     var PROJECTS = [
-      {
-        url: 'https://timespeaker.com/',
-        zh: ['TimeSpeaker · AI 对话历史人物', '与爱因斯坦、拿破仑、苏格拉底等历史人物实时对话的 AI 平台，支持文字与语音、主题课程与「思想交锋」双人辩论。Next.js 全栈，构建于 Cloudflare 全家桶之上。'],
-        en: ['TimeSpeaker · Talk to History', 'An AI platform for real-time conversations with historical figures — text and voice, guided courses, and an Arena where two minds from different eras debate the same question. Full-stack Next.js, running entirely on the Cloudflare stack.'],
-        tags: ['Next.js', 'Cloudflare Workers', 'D1', 'R2', 'AI'], live: true
-      },
-      {
-        url: 'https://goflashdeals.com',
-        zh: ['海外导购平台', '面向海外用户的现代化电商导购平台，基于 Nest.js + Next.js 构建，服务端渲染与接口层完全解耦。'],
-        en: ['Global Shopping Platform', 'A modern cross-border e-commerce discovery platform built on Nest.js and Next.js, with SSR fully decoupled from the API layer.'],
-        tags: ['Nest.js', 'Next.js', 'SSR'], live: true
-      },
-      {
-        url: 'https://earsonme.com/',
-        zh: ['播客聚合平台', '聚合多源播客内容的实时平台，使用 Livewire 与 Alpine.js 实现低延迟交互体验。'],
-        en: ['Podcast Aggregation Platform', 'A real-time platform aggregating podcasts from multiple sources, with low-latency interaction via Livewire and Alpine.js.'],
-        tags: ['Livewire', 'Alpine.js', 'Laravel'], live: true
-      },
-      {
-        url: 'https://nextjs-mui-learn.vercel.app',
-        zh: ['实时社区', '基于 Nest.js、Next.js 与 Socket.io 的实时社区系统，支持即时消息与动态推送。'],
-        en: ['Real-time Community', 'A community system built with Nest.js, Next.js and Socket.io, supporting instant messaging and live feed updates.'],
-        tags: ['Nest.js', 'Next.js', 'Socket.io'], live: true
-      },
-      {
-        url: 'https://exercise.aisheishei.me',
-        zh: ['题库与模拟考试平台', '在线题库与模拟考试系统，涵盖组卷、判分与错题追踪的完整链路。'],
-        en: ['Question Bank & Mock Exam', 'An online exam system covering the full loop: paper generation, auto-grading and mistake tracking.'],
-        tags: ['Livewire', 'Alpine.js', 'MySQL'], live: true
-      },
-      {
-        zh: ['企业内部协作平台', '基于群晖与 Discuz 搭建的企业级协作与知识沉淀方案，覆盖文件、权限与流程。'],
-        en: ['Enterprise Collaboration Platform', 'An internal collaboration and knowledge base built on Synology and Discuz, covering files, permissions and workflows.'],
-        tags: ['Synology', 'Discuz', 'Self-hosted'],
-        badgeZh: '内部系统', badgeEn: 'Internal'
-      },
-      {
-        zh: ['轰趴馆微信小程序', '派对场地预订小程序，基于 Hyperf + Vue.js，支持排期、下单与核销全流程。'],
-        en: ['Party Space Mini Program', 'A WeChat mini program for party venue booking on Hyperf and Vue.js — scheduling, orders and check-in end to end.'],
-        tags: ['Hyperf', 'Vue.js', 'WeChat'],
-        badgeZh: '小程序', badgeEn: 'Mini App'
-      }
+      { url:'https://timespeaker.com/', host:'timespeaker.com', icon:'spark',
+        zh:['TimeSpeaker · AI 对话历史人物','与爱因斯坦、拿破仑、苏格拉底等历史人物实时对话的 AI 平台，支持文字与语音、主题课程与「思想交锋」双人辩论。Next.js 全栈，构建于 Cloudflare 全家桶之上。'],
+        en:['TimeSpeaker · Talk to History','An AI platform for real-time conversations with historical figures — text and voice, guided courses, and an Arena where two minds from different eras debate the same question. Full-stack Next.js on the Cloudflare stack.'],
+        tags:['Next.js','Cloudflare Workers','D1','R2','AI'] },
+      { url:'https://goflashdeals.com', host:'goflashdeals.com', icon:'bag',
+        zh:['海外导购平台','面向海外用户的现代化电商导购平台，基于 Nest.js + Next.js 构建，服务端渲染与接口层完全解耦。'],
+        en:['Global Shopping Platform','A modern cross-border e-commerce discovery platform built on Nest.js and Next.js, with SSR fully decoupled from the API layer.'],
+        tags:['Nest.js','Next.js','SSR'] },
+      { url:'https://earsonme.com/', host:'earsonme.com', icon:'mic',
+        zh:['播客聚合平台','聚合多源播客内容的实时平台，使用 Livewire 与 Alpine.js 实现低延迟交互体验。'],
+        en:['Podcast Aggregation Platform','A real-time platform aggregating podcasts from multiple sources, with low-latency interaction via Livewire and Alpine.js.'],
+        tags:['Livewire','Alpine.js','Laravel'] },
+      { url:'https://nextjs-mui-learn.vercel.app', host:'vercel.app', icon:'chat',
+        zh:['实时社区','基于 Nest.js、Next.js 与 Socket.io 的实时社区系统，支持即时消息与动态推送。'],
+        en:['Real-time Community','A community system built with Nest.js, Next.js and Socket.io, supporting instant messaging and live feed updates.'],
+        tags:['Nest.js','Next.js','Socket.io'] },
+      { url:'https://exercise.aisheishei.me', host:'exercise.aisheishei.me', icon:'book',
+        zh:['题库与模拟考试平台','在线题库与模拟考试系统，涵盖组卷、判分与错题追踪的完整链路。'],
+        en:['Question Bank & Mock Exam','An online exam system covering the full loop: paper generation, auto-grading and mistake tracking.'],
+        tags:['Livewire','Alpine.js','MySQL'] },
+      { host:'internal', icon:'folder', badgeZh:'内部系统', badgeEn:'Internal',
+        zh:['企业内部协作平台','基于群晖与 Discuz 搭建的企业级协作与知识沉淀方案，覆盖文件、权限与流程。'],
+        en:['Enterprise Collaboration Platform','An internal collaboration and knowledge base built on Synology and Discuz, covering files, permissions and workflows.'],
+        tags:['Synology','Discuz','Self-hosted'] },
+      { host:'wechat', icon:'phone', badgeZh:'小程序', badgeEn:'Mini App',
+        zh:['轰趴馆微信小程序','派对场地预订小程序，基于 Hyperf + Vue.js，支持排期、下单与核销全流程。'],
+        en:['Party Space Mini Program','A WeChat mini program for party venue booking on Hyperf and Vue.js — scheduling, orders and check-in end to end.'],
+        tags:['Hyperf','Vue.js','WeChat'] }
     ];
 
-    /* ---------- render ---------- */
-    var SPARK = '<svg class="spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.4L19.5 10l-5.6 1.6L12 17l-1.9-5.4L4.5 10l5.6-1.6L12 3z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/></svg>';
+    function svg(name, cls) {
+      return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+             'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + ICONS[name] + '</svg>';
+    }
 
+    /* ---------------- stack ---------------- */
     var grid = document.getElementById('stack-grid');
     var tabsEl = document.getElementById('stack-tabs');
     var activeGroup = 'all';
@@ -648,9 +740,8 @@
       el.dataset.group = t[3];
       var icon = t[4]
         ? '<img loading="lazy" src="' + DEVICON + t[4] + '" alt="' + t[0] + '" onerror="this.style.display=\'none\'">'
-        : SPARK;
-      el.innerHTML = icon +
-        '<span class="meta"><span class="n">' + t[0] + '</span>' +
+        : svg('spark', 'spark');
+      el.innerHTML = icon + '<span class="meta"><span class="n">' + t[0] + '</span>' +
         '<span class="k lang-switch" data-zh="' + t[1] + '" data-en="' + t[2] + '">' + t[2] + '</span></span>';
       el.addEventListener('pointermove', function (e) {
         var r = el.getBoundingClientRect();
@@ -663,47 +754,34 @@
     function renderTabs() {
       tabsEl.innerHTML = '';
       GROUPS.forEach(function (g) {
-        var count = g.id === 'all'
-          ? STACK.length
-          : STACK.filter(function (t) { return t[3] === g.id; }).length;
+        var count = g.id === 'all' ? STACK.length : STACK.filter(function (t) { return t[3] === g.id; }).length;
         var b = document.createElement('button');
         b.className = 'stack-tab' + (g.id === activeGroup ? ' on' : '');
-        b.innerHTML = '<span class="lang-switch" data-zh="' + g.zh + '" data-en="' + g.en + '">' + g.en +
-                      '</span><span class="ct">' + count + '</span>';
+        b.innerHTML = '<span class="lang-switch" data-zh="' + g.zh + '" data-en="' + g.en + '">' + g.en + '</span><span class="ct">' + count + '</span>';
         b.addEventListener('click', function () { setGroup(g.id); });
         tabsEl.appendChild(b);
       });
-      applyLang(tabsEl);
     }
 
+    var baseH = 0;
     function setGroup(id) {
       if (activeGroup === 'all') baseH = grid.offsetHeight;
       activeGroup = id;
       grid.style.minHeight = id === 'all' ? '' : baseH + 'px';
-      Array.prototype.forEach.call(tabsEl.children, function (b, i) {
-        b.classList.toggle('on', GROUPS[i].id === id);
-      });
+      Array.prototype.forEach.call(tabsEl.children, function (b, i) { b.classList.toggle('on', GROUPS[i].id === id); });
       Array.prototype.forEach.call(grid.children, function (el) {
         var show = id === 'all' || el.dataset.group === id;
         el.classList.toggle('off', !show);
-        if (show) {
-          el.classList.add('in');
-          el.classList.remove('pop');
-          void el.offsetWidth;
-          el.classList.add('pop');
-        }
+        if (show) { el.classList.add('in'); el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
       });
     }
-
     renderTabs();
-
-    // keep the section height stable while filtering
-    var baseH = 0;
     function measure() { if (activeGroup === 'all') baseH = grid.offsetHeight; }
     window.addEventListener('load', measure);
     window.addEventListener('resize', function () { grid.style.minHeight = ''; measure(); });
     measure();
 
+    /* ---------------- projects ---------------- */
     var pg = document.getElementById('proj-grid');
     PROJECTS.forEach(function (p, i) {
       var el = document.createElement(p.url ? 'a' : 'div');
@@ -713,22 +791,22 @@
         ? '<span class="badge live">live</span>'
         : '<span class="badge lang-switch" data-zh="' + p.badgeZh + '" data-en="' + p.badgeEn + '">' + p.badgeEn + '</span>';
       el.innerHTML =
-        '<div class="proj-top"><span class="proj-idx">' + String(i + 1).padStart(2, '0') + '</span>' + badge + '</div>' +
-        '<h3><span class="lang-switch" data-zh="' + p.zh[0] + '" data-en="' + p.en[0] + '">' + p.en[0] + '</span></h3>' +
-        '<p><span class="lang-switch" data-zh="' + p.zh[1] + '" data-en="' + p.en[1] + '">' + p.en[1] + '</span></p>' +
-        '<div class="tags">' + p.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
-        (p.url ? '<span class="proj-go"><span class="lang-switch" data-zh="访问站点" data-en="Visit site">Visit site</span> →</span>' : '');
+        '<div class="cover">' + svg(p.icon) +
+          '<span class="idx">' + String(i + 1).padStart(2, '0') + '</span>' +
+          '<span class="host">' + p.host + '</span>' +
+        '</div>' +
+        '<div class="proj-body">' +
+          '<div class="proj-top">' +
+            '<h3><span class="lang-switch" data-zh="' + p.zh[0] + '" data-en="' + p.en[0] + '">' + p.en[0] + '</span></h3>' + badge +
+          '</div>' +
+          '<p><span class="lang-switch" data-zh="' + p.zh[1] + '" data-en="' + p.en[1] + '">' + p.en[1] + '</span></p>' +
+          '<div class="tags">' + p.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
+          (p.url ? '<span class="proj-go"><span class="lang-switch" data-zh="访问站点" data-en="Visit site">Visit site</span> →</span>' : '') +
+        '</div>';
       pg.appendChild(el);
     });
 
-    var mq = document.getElementById('marquee');
-    var words = STACK.map(function (t) { return t[0]; });
-    var html = words.concat(words).map(function (w) {
-      return '<span class="marquee-item"><i></i>' + w + '</span>';
-    }).join('');
-    mq.innerHTML = html;
-
-    /* ---------- theme ---------- */
+    /* ---------------- theme ---------------- */
     var moon = document.getElementById('icon-moon');
     var sun = document.getElementById('icon-sun');
     function applyTheme(t) {
@@ -747,20 +825,40 @@
       try { localStorage.setItem('theme', next); } catch (e) {}
     };
 
-    /* ---------- language ---------- */
+    /* ---------------- language ---------------- */
     var ROLES = {
-      en: ['Full Stack Engineer', 'DevOps Engineer', 'Open Source Enthusiast'],
-      zh: ['全栈工程师', 'DevOps 工程师', '开源爱好者']
+      en: ['Full Stack Engineer', 'DevOps Engineer', 'AI Product Builder', 'Open Source Enthusiast'],
+      zh: ['全栈工程师', 'DevOps 工程师', 'AI 产品开发者', '开源爱好者']
     };
+    var FETCH = {
+      en: [
+        ['OS',         'macOS · Debian · Alpine'],
+        ['Host',       'yaming.dev'],
+        ['Uptime',     '10+ years in production'],
+        ['Shell',      'zsh · tmux · Neovim'],
+        ['Languages',  'Go · TypeScript · PHP'],
+        ['Frameworks', 'Next.js · NestJS · Laravel'],
+        ['Data',       'MySQL · MongoDB · Redis'],
+        ['Cloud',      'Cloudflare · Docker · Linux'],
+        ['AI',         'GPT · Claude · Gemini · DeepSeek']
+      ],
+      zh: [
+        ['系统',   'macOS · Debian · Alpine'],
+        ['主机',   'yaming.dev'],
+        ['运行时长', '10+ 年生产环境'],
+        ['终端',   'zsh · tmux · Neovim'],
+        ['语言',   'Go · TypeScript · PHP'],
+        ['框架',   'Next.js · NestJS · Laravel'],
+        ['数据',   'MySQL · MongoDB · Redis'],
+        ['云 / 运维', 'Cloudflare · Docker · Linux'],
+        ['AI',     'GPT · Claude · Gemini · DeepSeek']
+      ]
+    };
+    var TAIL = { en: 'echo "let\'s build something"', zh: 'echo "一起做点东西"' };
+
     var currentLang = 'en';
     try { currentLang = localStorage.getItem('lang') || 'en'; } catch (e) {}
 
-    function applyLang(root) {
-      (root || document).querySelectorAll('.lang-switch').forEach(function (el) {
-        var v = el.dataset[currentLang];
-        if (v != null) el.textContent = v;
-      });
-    }
     function updateContent() {
       document.querySelectorAll('.lang-switch').forEach(function (el) {
         var v = el.dataset[currentLang];
@@ -771,6 +869,7 @@
       document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
       document.getElementById('lang-text').textContent = currentLang === 'en' ? 'EN' : '中';
       restartTyping();
+      renderFetch();
     }
     window.toggleLanguage = function () {
       currentLang = currentLang === 'zh' ? 'en' : 'zh';
@@ -778,13 +877,54 @@
       updateContent();
     };
 
-    /* ---------- typing ---------- */
+    /* ---------------- terminal ---------------- */
+    var info = document.getElementById('fetch-info');
+    var tailEl = document.getElementById('tail');
+    var fetchTimers = [];
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function renderFetch() {
+      fetchTimers.forEach(clearTimeout);
+      fetchTimers = [];
+      var rows = FETCH[currentLang];
+      var head = currentLang === 'zh' ? 'yaming@yaming.dev' : 'yaming@yaming.dev';
+      var html = '<div class="fl"><span class="fu">' + head + '</span></div>' +
+                 '<div class="fl"><span class="rule">' + '-'.repeat(head.length) + '</span></div>';
+      rows.forEach(function (r) {
+        html += '<div class="fl"><span class="fk">' + r[0] + '</span><span class="fv">' + r[1] + '</span></div>';
+      });
+      info.innerHTML = html;
+
+      var lines = [].concat(
+        [document.querySelector('.cmd[data-i="0"]')],
+        Array.prototype.slice.call(info.querySelectorAll('.fl'))
+      );
+      lines.forEach(function (el, i) {
+        if (reduce) { el.classList.add('show'); return; }
+        fetchTimers.push(setTimeout(function () { el.classList.add('show'); }, 220 + i * 110));
+      });
+      var last = document.querySelector('.cmd[data-i="99"]');
+      var delay = 220 + lines.length * 110 + 260;
+      if (reduce) { last.classList.add('show'); tailEl.textContent = TAIL[currentLang]; return; }
+      tailEl.textContent = '';
+      fetchTimers.push(setTimeout(function () {
+        last.classList.add('show');
+        var s = TAIL[currentLang], j = 0;
+        (function typeTail() {
+          tailEl.textContent = s.slice(0, ++j);
+          if (j < s.length) fetchTimers.push(setTimeout(typeTail, 42));
+        })();
+      }, delay));
+    }
+
+    /* ---------------- role typewriter ---------------- */
     var typed = document.getElementById('typed');
     var tTimer = null, tIdx = 0, tPos = 0, tDel = false;
     function restartTyping() {
       clearTimeout(tTimer);
       tIdx = 0; tPos = 0; tDel = false;
       typed.textContent = '';
+      if (reduce) { typed.textContent = ROLES[currentLang][0]; return; }
       tick();
     }
     function tick() {
@@ -800,12 +940,12 @@
 
     updateContent();
 
-    /* ---------- reveal on scroll ---------- */
+    /* ---------------- reveal ---------------- */
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(function (el, i) {
       el.style.transitionDelay = (Math.min(i, 8) * 45) + 'ms';
       io.observe(el);
