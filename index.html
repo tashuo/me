@@ -884,7 +884,7 @@
         zh:['实时社区','基于 Nest.js、Next.js 与 Socket.io 的实时社区系统，支持即时消息与动态推送。'],
         en:['Real-time Community','A community system built with Nest.js, Next.js and Socket.io, supporting instant messaging and live feed updates.'],
         tags:['Nest.js','Next.js','Socket.io'] },
-      { url:'https://exercise.aisheishei.me', host:'exercise.aisheishei.me', icon:'book',
+      { url:'https://exercise.yaming.dev', host:'exercise.yaming.dev', icon:'book',
         zh:['题库与模拟考试平台','在线题库与模拟考试系统，涵盖组卷、判分与错题追踪的完整链路。'],
         en:['Question Bank & Mock Exam','An online exam system covering the full loop: paper generation, auto-grading and mistake tracking.'],
         tags:['Livewire','Alpine.js','MySQL'] },
@@ -1039,7 +1039,7 @@
         entries.forEach(function (e, i) {
           var title = (e.querySelector('title') || {}).textContent || '';
           var link = e.querySelector('link') ? e.querySelector('link').getAttribute('href') : '#';
-          // the feed still carries the retired aisheishei domain — pin every post to the current host
+          // the feed still carries the retired domain — pin every post to the current host
           try { var lu = new URL(link, BLOG); link = BLOG + lu.pathname + lu.search + lu.hash; } catch (err) {}
           var upd = (e.querySelector('updated') || e.querySelector('published') || {}).textContent || '';
           var cats = [].slice.call(e.querySelectorAll('category')).map(function (c) { return c.getAttribute('term'); }).filter(Boolean).slice(0, 3);
