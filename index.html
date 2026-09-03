@@ -369,6 +369,17 @@
     .pcard p{margin-top:9px;font-size:14px;color:var(--fg-dim)}
     .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:18px}
     .tag{font-family:var(--mono);font-size:10.5px;padding:4px 9px;border-radius:6px;border:1px solid var(--line);color:var(--fg-dim);background:var(--surface)}
+    .ext-links{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+    .ext-link{
+      display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;
+      border:1px solid var(--line);background:var(--surface);color:var(--fg-dim);
+      font-family:var(--mono);font-size:11.5px;transition:.22s;
+    }
+    .ext-link:hover{color:var(--acc-2);border-color:var(--acc);background:rgba(41,190,67,.1);transform:translateY(-1px)}
+    .ext-link svg{width:13px;height:13px}
+    .ext-link.primary{color:var(--acc-2);border-color:rgba(41,190,67,.45)}
+    .rating{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:11px;color:#fbbf24}
+    .rating svg{width:12px;height:12px}
     .go{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--acc);transition:.22s}
     .pcard:hover .go{gap:10px}
     .bmeta{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:var(--fg-faint);margin-bottom:10px}
@@ -452,6 +463,7 @@
           <a class="nav-link" href="#about"><span class="lang-switch" data-zh="关于" data-en="About">About</span></a>
           <a class="nav-link" href="#stack"><span class="lang-switch" data-zh="技术栈" data-en="Stack">Stack</span></a>
           <a class="nav-link" href="#projects"><span class="lang-switch" data-zh="项目" data-en="Projects">Projects</span></a>
+          <a class="nav-link" href="#extensions"><span class="lang-switch" data-zh="插件" data-en="Extensions">Extensions</span></a>
           <a class="nav-link" href="#blog"><span class="lang-switch" data-zh="博客" data-en="Blog">Blog</span></a>
           <a class="nav-link" href="#contact"><span class="lang-switch" data-zh="联系" data-en="Contact">Contact</span></a>
           <span class="nav-sep"></span>
@@ -465,6 +477,7 @@
         <a href="#about" onclick="closeMenu()"><span class="lang-switch" data-zh="关于" data-en="About">About</span></a>
         <a href="#stack" onclick="closeMenu()"><span class="lang-switch" data-zh="技术栈" data-en="Stack">Stack</span></a>
         <a href="#projects" onclick="closeMenu()"><span class="lang-switch" data-zh="项目" data-en="Projects">Projects</span></a>
+        <a href="#extensions" onclick="closeMenu()"><span class="lang-switch" data-zh="插件" data-en="Extensions">Extensions</span></a>
         <a href="#blog" onclick="closeMenu()"><span class="lang-switch" data-zh="博客" data-en="Blog">Blog</span></a>
         <a href="#contact" onclick="closeMenu()"><span class="lang-switch" data-zh="联系" data-en="Contact">Contact</span></a>
       </div>
@@ -692,8 +705,24 @@
       </div>
     </section>
 
+    <!-- ==================== CHROME EXTENSIONS ==================== -->
+    <section id="extensions">
+      <div class="container">
+        <div class="sec-head" data-anim="down">
+          <h2><span class="lang-switch" data-zh="浏览器" data-en="Chrome">Chrome</span> <span class="a lang-switch" data-zh="插件" data-en="Extensions">Extensions</span></h2>
+          <p>
+            <span class="lang-switch"
+              data-zh="一套 Space 系列的 Chrome 插件，都是纯本地运行 —— 不联网、不采集数据、不需要账号。已上架 Chrome 应用商店。"
+              data-en="A family of Space extensions on the Chrome Web Store. All of them run entirely on-device — no network calls, no telemetry, no account.">
+            </span>
+          </p>
+        </div>
+        <div class="grid3" id="ext-grid"></div>
+      </div>
+    </section>
+
     <!-- ==================== BLOG ==================== -->
-    <section id="blog">
+    <section id="blog" class="alt">
       <div class="container">
         <div class="sec-head" data-anim="down">
           <h2><span class="lang-switch" data-zh="最新" data-en="Latest">Latest</span> <span class="a lang-switch" data-zh="文章" data-en="Blog Posts">Blog Posts</span></h2>
@@ -784,6 +813,7 @@
             <a href="#about"><span class="lang-switch" data-zh="关于我" data-en="About">About</span></a>
             <a href="#stack"><span class="lang-switch" data-zh="技术栈" data-en="Tech Stack">Tech Stack</span></a>
             <a href="#projects"><span class="lang-switch" data-zh="项目" data-en="Projects">Projects</span></a>
+            <a href="#extensions"><span class="lang-switch" data-zh="浏览器插件" data-en="Extensions">Extensions</span></a>
             <a href="#blog"><span class="lang-switch" data-zh="博客" data-en="Blog">Blog</span></a>
             <a href="#contact"><span class="lang-switch" data-zh="联系我" data-en="Contact">Contact</span></a>
           </div>
@@ -792,6 +822,7 @@
             <h4><span class="lang-switch" data-zh="作品" data-en="Work">Work</span></h4>
             <a href="https://timespeaker.com/" target="_blank" rel="noopener">TimeSpeaker</a>
             <a href="https://earsonme.com/" target="_blank" rel="noopener">EarsOnMe</a>
+            <a href="https://chromewebstore.google.com/detail/spacetab/eibplkakglandhanadkmbhifedkhdmhf" target="_blank" rel="noopener">SpaceTab</a>
             <a href="https://github.com/tashuo" target="_blank" rel="noopener">GitHub</a>
           </div>
 
@@ -865,7 +896,12 @@
       book:'<path d="M4 4h10a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4z"/><path d="M17 7h3v13h-3M8 8h5M8 12h5"/>',
       folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>',
       phone:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5.5h4M12 18.5h.01"/>',
-      post:'<path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/>'
+      post:'<path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/>',
+      toolbox:'<path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M8 9V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 13h18"/>',
+      brain:'<path d="M12 5a3 3 0 0 0-6 0 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 6 0V5z"/><path d="M12 5a3 3 0 0 1 6 0 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-6 0"/>',
+      layers:'<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5M3 17l9 4 9-4"/>',
+      star:'<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.7l5.9-.9L12 3.5z" fill="currentColor" stroke="none"/>',
+      gh:'<path d="M9 19c-4 1.5-4-2.5-6-3m12 5v-3.9a3.4 3.4 0 0 0-1-2.6c3-.3 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 18.8 4a4.9 4.9 0 0 0-.1-3.6s-1.1-.3-3.7 1.4a12.6 12.6 0 0 0-6.6 0C5.8.1 4.7.4 4.7.4A4.9 4.9 0 0 0 4.6 4 5.2 5.2 0 0 0 3.2 7.7c0 5.2 3.2 6.4 6.2 6.7a3.4 3.4 0 0 0-1 2.6V21"/>'
     };
     function svg(n, cls) {
       return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + ICONS[n] + '</svg>';
@@ -896,6 +932,30 @@
         zh:['轰趴馆微信小程序','派对场地预订小程序，基于 Hyperf + Vue.js，支持排期、下单与核销全流程。'],
         en:['Party Space Mini Program','A WeChat mini program for party venue booking on Hyperf and Vue.js — scheduling, orders and check-in end to end.'],
         tags:['Hyperf','Vue.js','WeChat'] }
+    ];
+
+    var STORE = 'https://chromewebstore.google.com/detail/';
+    var EXTENSIONS = [
+      { id:'spacekit/noicdhpcgahghkoofjjadmjodgimocgm', icon:'toolbox', rating:'5.0',
+        name:'SpaceKit',
+        catZh:'开发者工具', catEn:'Developer Tools',
+        zh:'57 个开发常用工具收进一个命令面板 —— JSON、编解码、JWT、各类格式化。完全本地运行，零网络请求，不收集任何数据。',
+        en:'57 developer tools behind one command palette — JSON, codecs, JWT, formatters and more. Runs entirely on-device: zero network, zero data collection.',
+        tags:['Command Palette','Local-first','MV3'] },
+      { id:'spacemind/baignlbmmjeknihokhdcbkgjolmddmfh', icon:'brain', rating:'5.0',
+        repo:'https://github.com/tashuo/spacemind',
+        name:'SpaceMind',
+        catZh:'效率 / 规划', catEn:'Workflow & Planning',
+        zh:'把 ChatGPT、Claude、Gemini、DeepSeek、Mistral 的对话按项目归入命名空间。侧边栏实时捕获、全文检索（支持中文分词）、官方导出包 ZIP 导入。数据只存在浏览器本地。',
+        en:'Files your ChatGPT, Claude, Gemini, DeepSeek and Mistral threads into named project spaces. Real-time sidebar capture, full-text search with CJK tokenization, ZIP import of official exports — all in local IndexedDB.',
+        tags:['IndexedDB','5 AI platforms','MIT'] },
+      { id:'spacetab/eibplkakglandhanadkmbhifedkhdmhf', icon:'layers', rating:'5.0',
+        repo:'https://github.com/tashuo/spacetab',
+        name:'SpaceTab',
+        catZh:'效率 / 规划', catEn:'Workflow & Planning',
+        zh:'把一堆标签页变成命名的项目空间，毫秒级切换 —— 非活跃空间存放在一个隐藏窗口里保持已加载状态，切换时直接对调，不重新请求、不丢滚动位置。保留 Chrome 标签组的颜色和标题。',
+        en:'Turns a sea of tabs into named project spaces and switches in milliseconds — inactive spaces sit fully loaded in a hidden vault window, so nothing refetches and no scroll position is lost. Chrome tab groups survive the round trip.',
+        tags:['Tab Groups','Command Palette','MIT'] }
     ];
 
     var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
@@ -979,6 +1039,37 @@
           (p.url ? '<span class="go"><span class="lang-switch" data-zh="访问站点" data-en="Visit site">Visit site</span> →</span>' : '') +
         '</div>';
       pg.appendChild(el);
+    });
+
+    /* ---------------- chrome extensions ---------------- */
+    var eg = document.getElementById('ext-grid');
+    EXTENSIONS.forEach(function (x, i) {
+      var el = document.createElement('div');
+      el.className = 'pcard';
+      el.dataset.anim = 'up';
+      el.dataset.delay = String(100 + i * 100);
+      el.innerHTML =
+        '<div class="cover">' + svg(x.icon) +
+          '<span class="idx">' + String(i + 1).padStart(2, '0') + '</span>' +
+          '<span class="host">chrome web store</span></div>' +
+        '<div class="pbody">' +
+          '<div class="ptop"><h3>' + x.name + '</h3>' +
+            '<span class="rating">' + svg('star') + x.rating + '</span></div>' +
+          '<span class="badge lang-switch" data-zh="' + x.catZh + '" data-en="' + x.catEn + '" ' +
+            'style="align-self:flex-start;margin-bottom:10px">' + x.catEn + '</span>' +
+          '<p><span class="lang-switch" data-zh="' + x.zh + '" data-en="' + x.en + '">' + x.en + '</span></p>' +
+          '<div class="tags">' + x.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
+          '<div class="ext-links">' +
+            '<a class="ext-link primary" href="' + STORE + x.id + '" target="_blank" rel="noopener">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+              '<circle cx="12" cy="12" r="9"/><path d="M12 3v9M21 8H12M7.5 19.8L12 12"/></svg>' +
+              '<span class="lang-switch" data-zh="安装" data-en="Install">Install</span></a>' +
+            (x.repo ? '<a class="ext-link" href="' + x.repo + '" target="_blank" rel="noopener">' +
+              '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>' +
+              'GitHub</a>' : '') +
+          '</div>' +
+        '</div>';
+      eg.appendChild(el);
     });
 
     /* ---------------- toolbox bars ---------------- */
