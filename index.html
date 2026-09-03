@@ -1116,16 +1116,24 @@
 
     /* ---------------- live blog posts ---------------- */
     var blogGrid = document.getElementById('blog-grid');
+    function postDate(entry) {
+      // <updated> is the site's last rebuild time — the real date lives in <published>
+      var el = entry.querySelector('published') || entry.querySelector('updated');
+      return el ? el.textContent : '';
+    }
     function fmtDate(s) {
       var d = new Date(s);
       if (isNaN(d)) return '';
-      return d.toISOString().slice(0, 10);
+      var pad = function (v) { return (v < 10 ? '0' : '') + v; };
+      return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
     }
     fetch(FEED)
       .then(function (r) { if (!r.ok) throw 0; return r.text(); })
       .then(function (t) {
         var doc = new DOMParser().parseFromString(t, 'application/xml');
-        var entries = [].slice.call(doc.querySelectorAll('entry')).slice(0, 3);
+        var entries = [].slice.call(doc.querySelectorAll('entry'))
+          .sort(function (x, y) { return new Date(postDate(y)) - new Date(postDate(x)); })
+          .slice(0, 3);
         if (!entries.length) throw 0;
         blogGrid.innerHTML = '';
         entries.forEach(function (e, i) {
@@ -1133,7 +1141,7 @@
           var link = e.querySelector('link') ? e.querySelector('link').getAttribute('href') : '#';
           // the feed still carries the retired domain — pin every post to the current host
           try { var lu = new URL(link, BLOG); link = BLOG + lu.pathname + lu.search + lu.hash; } catch (err) {}
-          var upd = (e.querySelector('updated') || e.querySelector('published') || {}).textContent || '';
+          var upd = postDate(e);
           var cats = [].slice.call(e.querySelectorAll('category')).map(function (c) { return c.getAttribute('term'); }).filter(Boolean).slice(0, 3);
           var sumEl = e.querySelector('summary') || e.querySelector('content');
           var sum = sumEl ? sumEl.textContent.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().slice(0, 110) : '';
