@@ -353,7 +353,7 @@
 
     /* ==================== footer ==================== */
     footer{border-top:1px solid var(--line);padding:56px 0 32px;background:var(--bg-alt)}
-    .foot-grid{display:grid;grid-template-columns:1.3fr .8fr .8fr 1.2fr;gap:40px}
+    .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:44px}
     @media(max-width:900px){.foot-grid{grid-template-columns:1fr 1fr;gap:32px}}
     @media(max-width:560px){.foot-grid{grid-template-columns:1fr}}
     .foot-brand p{margin-top:14px;color:var(--fg-faint);font-size:13.5px;max-width:300px}
@@ -364,15 +364,6 @@
     .foot-col h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint);margin:0 0 14px;font-weight:600}
     .foot-col a{display:block;font-size:13.5px;color:var(--fg-dim);padding:4px 0;transition:.2s}
     .foot-col a:hover{color:var(--acc)}
-    .sub-form{display:flex;gap:8px;margin-top:14px}
-    .sub-form input{
-      flex:1;min-width:0;padding:10px 13px;border-radius:9px;border:1px solid var(--line);
-      background:var(--surface);color:var(--fg);font-family:inherit;font-size:13.5px;outline:none;transition:.2s;
-    }
-    .sub-form input:focus{border-color:var(--acc);background:var(--surface-2)}
-    .sub-form button{padding:10px 16px;border-radius:9px;border:0;background:var(--acc);color:var(--on-acc);font-weight:700;font-size:13.5px;cursor:pointer;transition:.2s;font-family:inherit}
-    .sub-form button:hover{filter:brightness(1.1)}
-    .sub-note{margin-top:10px;font-size:12px;color:var(--fg-faint);min-height:1.2em}
     .foot-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--fg-faint)}
     .foot-bottom .up{transition:.2s}
     .foot-bottom .up:hover{color:var(--acc)}
@@ -533,7 +524,7 @@
           <!-- GitHub profile card -->
           <div class="card reveal">
             <div class="gh-head">
-              <img src="https://avatars.githubusercontent.com/u/4208782?v=4" alt="Yaming" loading="lazy" />
+              <img id="gh-avatar" src="https://avatars.githubusercontent.com/u/4208782?v=4" alt="Yaming" loading="lazy" />
               <div class="who">
                 <b>Yaming</b>
                 <span>@tashuo</span>
@@ -743,25 +734,10 @@
           <div class="foot-col">
             <h4><span class="lang-switch" data-zh="作品" data-en="Work">Work</span></h4>
             <a href="https://timespeaker.com/" target="_blank" rel="noopener">TimeSpeaker</a>
-            <a href="https://goflashdeals.com" target="_blank" rel="noopener">GoFlashDeals</a>
             <a href="https://earsonme.com/" target="_blank" rel="noopener">EarsOnMe</a>
             <a href="https://github.com/tashuo" target="_blank" rel="noopener">GitHub</a>
           </div>
 
-          <div class="foot-col">
-            <h4><span class="lang-switch" data-zh="订阅更新" data-en="Stay in the loop">Stay in the loop</span></h4>
-            <p style="color:var(--fg-faint);font-size:13px">
-              <span class="lang-switch"
-                data-zh="新文章和新项目上线时收到一封邮件。不发广告。"
-                data-en="One email when a new post or project goes live. No spam.">
-              </span>
-            </p>
-            <form class="sub-form" id="sub-form" novalidate>
-              <input type="email" id="sub-email" required placeholder="you@example.com" aria-label="Email" />
-              <button type="submit"><span class="lang-switch" data-zh="订阅" data-en="Join">Join</span></button>
-            </form>
-            <div class="sub-note" id="sub-note"></div>
-          </div>
         </div>
 
         <div class="foot-bottom">
@@ -779,13 +755,6 @@
   <script>
   (function () {
     'use strict';
-
-    /* ============================================================
-       CONFIG — set this to your form endpoint (Formspree, a
-       Cloudflare Worker, Buttondown, ...) to activate the
-       newsletter box in the footer. Leave '' and it stays inert.
-       ============================================================ */
-    var NEWSLETTER_ENDPOINT = '';
 
     var DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
     var FEED = 'https://blog.yaming.dev/atom.xml';
@@ -849,10 +818,6 @@
         zh:['TimeSpeaker · AI 对话历史人物','与爱因斯坦、拿破仑、苏格拉底等历史人物实时对话的 AI 平台，支持文字与语音、主题课程与「思想交锋」双人辩论。Next.js 全栈，构建于 Cloudflare 全家桶之上。'],
         en:['TimeSpeaker · Talk to History','An AI platform for real-time conversations with historical figures — text and voice, guided courses, and an Arena where two minds debate the same question. Full-stack Next.js on the Cloudflare stack.'],
         tags:['Next.js','Cloudflare Workers','D1','R2','AI'] },
-      { url:'https://goflashdeals.com', host:'goflashdeals.com', icon:'bag',
-        zh:['海外导购平台','面向海外用户的现代化电商导购平台，基于 Nest.js + Next.js 构建，服务端渲染与接口层完全解耦。'],
-        en:['Global Shopping Platform','A modern cross-border e-commerce discovery platform built on Nest.js and Next.js, with SSR fully decoupled from the API layer.'],
-        tags:['Nest.js','Next.js','SSR'] },
       { url:'https://earsonme.com/', host:'earsonme.com', icon:'mic',
         zh:['播客聚合平台','聚合多源播客内容的实时平台，使用 Livewire 与 Alpine.js 实现低延迟交互体验。'],
         en:['Podcast Aggregation Platform','A real-time platform aggregating podcasts from multiple sources, with low-latency interaction via Livewire and Alpine.js.'],
@@ -982,6 +947,8 @@
           var y = new Date().getFullYear() - new Date(u.created_at).getFullYear();
           document.getElementById('gh-years').textContent = y;
         }
+        if (u && u.avatar_url) document.getElementById('gh-avatar').src = u.avatar_url;
+        if (u && u.name) document.querySelector('.gh-head .who b').textContent = u.name === 'ta_shuo' ? 'Yaming' : u.name;
       }).catch(function () {});
       fetch('https://api.github.com/users/' + GH_USER + '/repos?per_page=100&sort=updated')
         .then(function (r) { return r.json(); })
@@ -1037,30 +1004,6 @@
         applyLang(blogGrid);
       });
 
-    /* ---------------- newsletter ---------------- */
-    var sform = document.getElementById('sub-form');
-    var snote = document.getElementById('sub-note');
-    var SUB_MSG = {
-      ok:   { zh:'订阅成功，感谢！', en:'Subscribed — thank you!' },
-      bad:  { zh:'请填写有效的邮箱地址。', en:'Please enter a valid email.' },
-      err:  { zh:'提交失败，请稍后再试。', en:'Something went wrong, try again later.' },
-      off:  { zh:'订阅功能还没接后端，先去博客订阅 RSS 吧。', en:'Not wired up yet — grab the RSS feed instead.' }
-    };
-    sform.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var v = document.getElementById('sub-email').value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { snote.textContent = SUB_MSG.bad[currentLang]; return; }
-      if (!NEWSLETTER_ENDPOINT) { snote.textContent = SUB_MSG.off[currentLang]; return; }
-      snote.textContent = '...';
-      fetch(NEWSLETTER_ENDPOINT, {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ email: v })
-      }).then(function (r) {
-        snote.textContent = r.ok ? SUB_MSG.ok[currentLang] : SUB_MSG.err[currentLang];
-        if (r.ok) sform.reset();
-      }).catch(function () { snote.textContent = SUB_MSG.err[currentLang]; });
-    });
-
     /* ---------------- theme ---------------- */
     var moon = document.getElementById('icon-moon'), sun = document.getElementById('icon-sun');
     function applyTheme(t) {
@@ -1110,7 +1053,6 @@
       applyLang(document);
       document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
       document.getElementById('lang-text').textContent = currentLang === 'en' ? 'EN' : '中';
-      snote.textContent = '';
       restartTyping();
       renderFetch();
     }
