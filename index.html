@@ -814,7 +814,8 @@
     'use strict';
 
     var DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
-    var FEED = 'https://blog.yaming.dev/atom.xml';
+    var BLOG = 'https://blog.yaming.dev';
+    var FEED = BLOG + '/atom.xml';
     var GH_USER = 'tashuo';
 
     /* ---------------- data ---------------- */
@@ -1038,6 +1039,8 @@
         entries.forEach(function (e, i) {
           var title = (e.querySelector('title') || {}).textContent || '';
           var link = e.querySelector('link') ? e.querySelector('link').getAttribute('href') : '#';
+          // the feed still carries the retired aisheishei domain — pin every post to the current host
+          try { var lu = new URL(link, BLOG); link = BLOG + lu.pathname + lu.search + lu.hash; } catch (err) {}
           var upd = (e.querySelector('updated') || e.querySelector('published') || {}).textContent || '';
           var cats = [].slice.call(e.querySelectorAll('category')).map(function (c) { return c.getAttribute('term'); }).filter(Boolean).slice(0, 3);
           var sumEl = e.querySelector('summary') || e.querySelector('content');
